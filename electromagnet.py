@@ -1,38 +1,30 @@
 import RPi.GPIO as GPIO
 import time
 
-# Set the GPIO mode to BCM
+# Set the GPIO mode
 GPIO.setmode(GPIO.BCM)
 
-# Define the GPIO pin to which the base of the transistor is connected
-electromagnet_pin = 17
+# Set the GPIO pin for the relay
+relay_pin = 17
 
-# Set up the GPIO pin as an output pin
-GPIO.setup(electromagnet_pin, GPIO.OUT)
+# Initialize the relay pin as an output pin
+GPIO.setup(relay_pin, GPIO.OUT)
 
-# Function to turn ON the electromagnet
-def turn_on_electromagnet():
-    GPIO.output(electromagnet_pin, GPIO.HIGH)
-    print("Electromagnet turned ON")
+def turn_on_relay():
+    GPIO.output(relay_pin, GPIO.HIGH)
+    print("Relay ON")
 
-# Function to turn OFF the electromagnet
-def turn_off_electromagnet():
-    GPIO.output(electromagnet_pin, GPIO.LOW)
-    print("Electromagnet turned OFF")
+def turn_off_relay():
+    GPIO.output(relay_pin, GPIO.LOW)
+    print("Relay OFF")
 
 try:
     while True:
-        user_input = input("Enter 'on' to turn ON the electromagnet, 'off' to turn OFF, or 'exit' to quit: ")
-
-        if user_input.lower() == 'on':
-            turn_on_electromagnet()
-        elif user_input.lower() == 'off':
-            turn_off_electromagnet()
-        elif user_input.lower() == 'exit':
-            break
-        else:
-            print("Invalid input. Please try again.")
+        turn_on_relay()
+        time.sleep(20)  # Electromagnet ON for 2 seconds
+        turn_off_relay()
+        time.sleep(2)  # Electromagnet OFF for 2 seconds
 
 except KeyboardInterrupt:
-    # Cleanup GPIO on Ctrl+C
+    print("Exiting...")
     GPIO.cleanup()
