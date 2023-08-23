@@ -1,57 +1,67 @@
+
 import spidev
 import time
 
-# Define MCP23S17 registers
-IODIRA = 0x00  # I/O Direction register for port A
-GPIOA = 0x12   # Input/output register for port A
-GPPUA = 0x0C   # Pull-Up resistor enable register for port A
-IODIRB = 0x01  # I/O Direction register for port B
-GPIOB = 0x13   # Input/output register for port B
-GPPUB = 0x0D   # Pull-Up resistor enable register for port B
-CHIP_ADDRESS = 0x40
-# Specify the pin to read
-READ_PIN = 7   # Pin B0
+class HallEffectBoard:
+    def __init__(self,chipAddress):
+        # Define MCP23S17 registers
+        self.IODIRA = 0x00  # I/O Direction register for port A
+        self.GPIOA = 0x12   # Input/output register for port A
+        self.GPPUA = 0x0C   # Pull-Up resistor enable register for port A
+        self.IODIRB = 0x01  # I/O Direction register for port B
+        self.GPIOB = 0x13   # Input/output register for port B
+        self.GPPUB = 0x0D   # Pull-Up resistor enable register for port B
+        self.CHIP_ADDRESS = chipAddress
 
-# SPI setup
-spi = spidev.SpiDev()
-spi.open(0, 0)  # Use SPI bus 0, device 0
-spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
+        # SPI setup
+        self.spi = spidev.SpiDev()
+        self.spi.open(0, 0)  # Use SPI bus 0, device 0
+        self.spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
 
-# Configure all pins as inputs
-spi.xfer2([CHIP_ADDRESS, IODIRA, 0xFF])  # Set all pins of port B as input
 
-# Enable pull-up resistors for all pins
-spi.xfer2([CHIP_ADDRESS, GPPUA, 0xFF])  # Enable pull-up for all pins of port B
+        # Configure all pins as inputs
+        self.spi.xfer2([self.CHIP_ADDRESS, self.IODIRA, 0xFF])  # Set all pins of port B as input
 
-# Configure all pins as inputs
-spi.xfer2([CHIP_ADDRESS, IODIRB, 0xFF])  # Set all pins of port A as input
+        # Enable pull-up resistors for all pins
+        self.spi.xfer2([self.CHIP_ADDRESS, self.GPPUA, 0xFF])  # Enable pull-up for all pins of port B
 
-# Enable pull-up resistors for all pins
-spi.xfer2([CHIP_ADDRESS, GPPUB, 0xFF])  # Enable pull-up for all pins of port A
+        # Configure all pins as inputs
+        self.spi.xfer2([self.CHIP_ADDRESS, self.IODIRB, 0xFF])  # Set all pins of port A as input
 
-# Read the state of the specified pin
-def read_pin_state(pin,port,address):
-    data = spi.xfer2([0x41, port, 0x00])  # Read port B data
-    return (data[2] >> pin) & 1 # Extract the state of the specified pin
+        # Enable pull-up resistors for all pins
+        self.spi.xfer2([self.CHIP_ADDRESS, self.GPPUB, 0xFF])  # Enable pull-up for all pins of port A
 
-def read_board():
-    statesA = []
-    statesB = []
+    # Read the state of the specified pin
+    def read_pin_state(self,pin,port):
+        data = self.spi.xfer2([0x41, port, 0x00])  # Read port B data
+        return (data[2] >> pin) & 1 # Extract the state of the specified pin
 
-    for i in range(0,8):
-        statesA.append(read_pin_state(i,GPIOA,CHIP_ADDRESS))
-        statesB.append(read_pin_state(i,GPIOB,CHIP_ADDRESS))
-    return statesA,statesB
+    def read_board(self):
+        statesA = []
+        statesB = []
+
+        for i in range(0,8):
+            statesA.append(self.read_pin_state(i,self.GPIOA,self.CHIP_ADDRESS))
+            statesB.append(self.read_pin_state(i,self.GPIOB,self.CHIP_ADDRESS))
+        return statesA,statesB
 
 try:
+    nChips = 1
+    chessboard = []
+    chessboardState = []
+    for i in range(64,64+nChips):
+        chessboard.append(HallEffectBoard(hex(i)))
     while True:
-        statesA,statesB = read_board()
-        boardState = [statesA,statesB]
-        print(boardState)
-        time.sleep(0.5)
+        for i in range(len(chessboardState)) :
+            statesA,statesB = chessboard[i].read_board()
+            chessboardState.append(statesA)
+            chessboardState.append(statesB)
+            time.sleep(0.5)
+        print(chessboardState)
         
 except KeyboardInterrupt:
     pass
 
 # Clean up
-spi.close()
+for i in range(len(chessboard)):
+    chessboard[i].spi.close()
