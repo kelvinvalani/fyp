@@ -11,12 +11,12 @@ for x in range(0, 16):
     mcp1.setPullupMode(x,MCP23S17.PULLUP_ENABLED)
 
 
-
 try:
     while True:
         # Read the state of the GPIO pin
 
-        sensor_state = mcp1.digitalRead(8)
+        sensor_state = mcp1.digitalRead(9)
+        print(sensor_state)
         
         if sensor_state == MCP23S17.LEVEL_HIGH:
             print("No magnetic field")
@@ -29,4 +29,4 @@ except KeyboardInterrupt:
     pass
 
 # Clean up GPIO configuration
-mcp1.close
+mcp1.close()
