@@ -8,7 +8,7 @@ GPPUA = 0x0C   # Pull-Up resistor enable register for port A
 IODIRB = 0x01  # I/O Direction register for port B
 GPIOB = 0x13   # Input/output register for port B
 GPPUB = 0x0D   # Pull-Up resistor enable register for port B
-CHIP_ADDRESS = 0x41
+CHIP_ADDRESS = 0x40
 # Specify the pin to read
 READ_PIN = 7   # Pin B0
 
@@ -31,7 +31,7 @@ spi.xfer2([CHIP_ADDRESS, GPPUB, 0xFF])  # Enable pull-up for all pins of port A
 
 # Read the state of the specified pin
 def read_pin_state(pin,port,address):
-    data = spi.xfer2([address, port, 0x00])  # Read port B data
+    data = spi.xfer2([0x41, port, 0x00])  # Read port B data
     return (data[2] >> pin) & 1 # Extract the state of the specified pin
 
 def read_board():
