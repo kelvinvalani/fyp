@@ -166,9 +166,6 @@ class ChessGUI:
 
                 self.chessboard = self.fen_to_2d_array(fen)
                 self.draw_board()
-                print(self.chessboard)
-                
-                print(f"---------------")
 
                 # Split the moves string into a list of individual moves
                 moves_list = moves.split(" ")
@@ -206,9 +203,6 @@ class ChessGUI:
                             print("Illegal move. Try again.")
                             continue
 
-                        # Display board
-                        print(self.chessboard)
-                        print(f"---------------")
 
 if __name__ == "__main__":
     root = tk.Tk()
