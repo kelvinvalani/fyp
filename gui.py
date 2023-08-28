@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
-
-class SimpleGUI:
+import chess
+import csv
+import time
+class ChessGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Chess puzzles")
@@ -40,7 +42,7 @@ class SimpleGUI:
         back_button = tk.Button(new_frame, text="Back", command=lambda: self.go_back(new_frame))
         back_button.pack()
 
-        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.make_move())
+        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle())
         move_button.pack()
 
         self.current_screen.pack_forget()  # Hide the current screen
@@ -82,9 +84,7 @@ class SimpleGUI:
                 y = row * 50+25
                 self.canvas.create_text(x, y, text=piece, font=("Arial", 24),fill="black")
 
-    def make_move(self):
-        print("Please make a move")
-        move = input()
+    def make_move(self,move):
         self.update_chessboard(str(move))
 
     def update_chessboard(self, move):
@@ -127,7 +127,90 @@ class SimpleGUI:
         else:
             messagebox.showinfo("Info", "Cannot go back further.")
 
+    def fen_to_2d_array(self,fen):
+        pieces_mapping = {
+            'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+            'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+        }
+
+        rows = fen.split('/')
+        board = []
+
+        for row in rows:
+            new_row = []
+            for char in row:
+                if char.isdigit():
+                    new_row.extend(['.'] * int(char))
+                else:
+                    new_row.append(pieces_mapping.get(char, char))
+            board.append(new_row)
+
+        return board
+    
+    def solve_puzzle(self):
+        csv_file_path = "./lichess_puzzles.csv"
+
+        # Read the CSV and play through puzzles
+        with open(csv_file_path, mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            header = next(csv_reader)  # Skip the header row
+
+            for row in csv_reader:
+                dummy = input("Press enter for a new puzzle")
+                puzzle_id, fen, moves, rating, *_ = row  # Unpack only the first 4 columns, ignore the rest
+
+                print(f"Starting puzzle with ID: {puzzle_id}, Rating: {rating}")
+
+                # Initialize a chess board with the FEN from the puzzle
+                board = chess.Board(fen)
+
+                self.chessboard = self.fen_to_2d_array(fen)
+                self.draw_board()
+                print(self.chessboard)
+                
+                print(f"---------------")
+
+                # Split the moves string into a list of individual moves
+                moves_list = moves.split(" ")
+
+                # Iterate through pairs of moves
+                for i in range(0, len(moves_list), 2):
+                    puzzle_move = moves_list[i]
+
+                    # Apply the first puzzle move
+                    dummy = input("Press enter to see opponents move")
+                    if chess.Move.from_uci(puzzle_move) in board.legal_moves:
+                        board.push(chess.Move.from_uci(puzzle_move))
+                        # Display board
+                        self.make_move(puzzle_move)
+                    else:
+                        print(f"Illegal puzzle move: {puzzle_move}. Skipping to next puzzle.")
+                        break
+
+                    if i+1 < len(moves_list):
+                        player_move = moves_list[i+1]
+                        print(player_move)
+                        # Ask for the player's move
+                        user_move = input('Your move (in UCI format, e.g., e2e4): ')
+
+                        # Check if the move is the same as the puzzle's suggested move
+                        if user_move != player_move:
+                            print("Incorrect move. Try again.")
+                            continue
+                        
+                        # Check if the move is legal
+                        if chess.Move.from_uci(user_move) in board.legal_moves:
+                            board.push(chess.Move.from_uci(user_move))
+                            self.make_move(user_move)
+                        else:
+                            print("Illegal move. Try again.")
+                            continue
+
+                        # Display board
+                        print(self.chessboard)
+                        print(f"---------------")
+
 if __name__ == "__main__":
     root = tk.Tk()
-    app = SimpleGUI(root)
+    app = ChessGUI(root)
     root.mainloop()
