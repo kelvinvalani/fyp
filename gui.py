@@ -1,5 +1,5 @@
 import tkinter as tk
-import Image, ImageTk
+# import Image, ImageTk
 # Define the chessboard and pieces (using Unicode symbols)
 # (Same as before)
 chessboard = [
