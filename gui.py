@@ -1,22 +1,53 @@
 import tkinter as tk
-# import Image, ImageTk
-# Define the chessboard and pieces (using Unicode symbols)
-# (Same as before)
-chessboard = [
-    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
-]
-class ChessGUI:
+from tkinter import messagebox
+
+class SimpleGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Chess GUI")
-        self.just_launched = True
+        self.root.title("Chess puzzles")
+        
+        self.chessboard = []
+        
+        self.main_frame = tk.Frame(self.root)
+        self.main_frame.pack()
+
+        self.buttonEasy = tk.Button(self.main_frame, text="Easy", command=self.open_screenEasy)
+        self.buttonMedium = tk.Button(self.main_frame, text="Medium", command=self.open_screenMedium)
+        self.buttonHard = tk.Button(self.main_frame, text="Hard", command=self.open_screenHard)
+        self.quit_button = tk.Button(self.main_frame, text="Quit", command=self.root.quit)
+
+        self.buttonEasy.pack()
+        self.buttonMedium.pack()
+        self.buttonHard.pack()
+        self.quit_button.pack()
+
+        self.screens = [self.main_frame]
+        self.current_screen = self.main_frame
+
+    def open_screenEasy(self):
+        self.show_new_screen("Easy puzzle")
+
+    def open_screenMedium(self):
+        self.show_new_screen("Medium puzzle")
+
+    def open_screenHard(self):
+        self.show_new_screen("Hard puzzle")
+
+    def show_new_screen(self, screen_name):
+        new_frame = tk.Frame(self.root)
+        tk.Label(new_frame, text=screen_name).pack()
+        
+        back_button = tk.Button(new_frame, text="Back", command=lambda: self.go_back(new_frame))
+        back_button.pack()
+
+        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.make_move())
+        move_button.pack()
+
+        self.current_screen.pack_forget()  # Hide the current screen
+        new_frame.pack()  # Show the new screen
+        self.screens.append(new_frame)
+        self.current_screen = new_frame
+
         self.chessboard = [
     ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
     ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
@@ -27,65 +58,9 @@ class ChessGUI:
     ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
     ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
 ]
-        self.main_menu()
-
-    def main_menu(self):
-        # Display the main menu with options
-        if self.just_launched == False:
-            self.back_button.pack_forget()
-        self.canvas = tk.Canvas(root, width=400, height=400)
-        self.canvas.pack()
-        self.canvas.create_text(200, 100, text="Chess puzzles", font=("Arial", 20))
-
-        self.start_button_easy = tk.Button(self.root, text="Easy", command=self.new_game)
-        self.start_button_easy.pack(pady=10)
-
-        self.start_button_medium = tk.Button(self.root, text="Medium", command=self.new_game)
-        self.start_button_medium.pack(pady=10)
-
-        self.start_button_hard = tk.Button(self.root, text="Hard", command=self.new_game)
-        self.start_button_hard.pack(pady=10)
-
-        self.quit_button = tk.Button(self.root, text="Quit", command=self.quit_game)
-        self.quit_button.pack(pady=10)
-
-    def new_game(self):
-        # Clear the main menu and start a new game by drawing the chessboard
-        self.chessboard = [
-    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
-]
-        self.canvas.delete("all")
-        self.canvas.pack_forget()
-        self.start_button_easy.pack_forget()
-        self.start_button_medium.pack_forget()
-        self.start_button_hard.pack_forget()
-        self.quit_button.pack_forget()
-
-        # Draw the chessboard
         self.canvas = tk.Canvas(root, width=800, height=800)
         self.canvas.pack()
         self.draw_board()
-
-
-        # Show the back button
-        self.back_button = tk.Button(root, text="Back to Main Menu", command=self.back_to_main_menu)
-        self.back_button.pack()
-        self.back_button.place(x=10, y=10)
-
-
-        self.move_button = tk.Button(self.root, text="Make move", command=self.make_move)
-        self.move_button.pack()
-        self.move_button.place(x=100, y=200)
-
-    def quit_game(self):
-        self.root.destroy()
 
     def draw_board(self):
         # Draw the chessboard
@@ -106,6 +81,11 @@ class ChessGUI:
                 x = col * 50+25
                 y = row * 50+25
                 self.canvas.create_text(x, y, text=piece, font=("Arial", 24),fill="black")
+
+    def make_move(self):
+        print("Please make a move")
+        move = input()
+        self.update_chessboard(str(move))
 
     def update_chessboard(self, move):
         """
@@ -136,24 +116,18 @@ class ChessGUI:
         self.canvas.pack()
         self.draw_board()
 
-
-    def back_to_main_menu(self):
-        # Clear the chessboard and go back to the main menu
-        self.canvas.delete("all")
-        self.canvas.pack_forget()
-        self.back_button.pack_forget()  # Hide the back button
-        self.move_button.pack_forget()
-
-        # Display the main menu again
-        self.just_launched =False
-        self.main_menu()
-
-    def make_move(self):
-        print("Please make a move")
-        move = input()
-        self.update_chessboard(str(move))
+    def go_back(self, frame):
+        if len(self.screens) > 1:
+            self.screens.pop()
+            self.current_screen.pack_forget()  # Hide the current screen
+            self.canvas.delete("all")
+            self.canvas.pack_forget()
+            self.current_screen = self.screens[-1]
+            self.current_screen.pack()  # Show the previous screen
+        else:
+            messagebox.showinfo("Info", "Cannot go back further.")
 
 if __name__ == "__main__":
     root = tk.Tk()
-    chess_gui = ChessGUI(root)
+    app = SimpleGUI(root)
     root.mainloop()
