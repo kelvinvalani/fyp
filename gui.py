@@ -3,6 +3,7 @@ from tkinter import messagebox
 import chess
 import csv
 import time
+import random
 class ChessGUI:
     def __init__(self, root):
         self.root = root
@@ -27,22 +28,27 @@ class ChessGUI:
         self.current_screen = self.main_frame
 
     def open_screenEasy(self):
-        self.show_new_screen("Easy puzzle")
+        csv_file_path = "./1.easy_puzzles.csv"
+        self.show_new_screen("Easy puzzle", csv_file_path)
 
     def open_screenMedium(self):
-        self.show_new_screen("Medium puzzle")
+        csv_file_path = "./2.med_puzzles.csv"
+        self.show_new_screen("Medium puzzle", csv_file_path)
 
     def open_screenHard(self):
-        self.show_new_screen("Hard puzzle")
+        csv_file_path = "./1.easy_puzzles.csv"
+        self.show_new_screen("Hard puzzle", csv_file_path)
 
-    def show_new_screen(self, screen_name):
+    def show_new_screen(self, screen_name, csv_file_path):
+
+
         new_frame = tk.Frame(self.root)
         tk.Label(new_frame, text=screen_name).pack()
         
         back_button = tk.Button(new_frame, text="Back", command=lambda: self.go_back(new_frame))
         back_button.pack()
 
-        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle())
+        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
         move_button.pack()
 
         self.current_screen.pack_forget()  # Hide the current screen
@@ -147,15 +153,16 @@ class ChessGUI:
 
         return board
     
-    def solve_puzzle(self):
-        csv_file_path = "./lichess_puzzles.csv"
-
+    def solve_puzzle(self, csv_file_path):
         # Read the CSV and play through puzzles
         with open(csv_file_path, mode='r') as csv_file:
             csv_reader = csv.reader(csv_file)
             header = next(csv_reader)  # Skip the header row
 
-            for row in csv_reader:
+            all_rows = [row for row in csv_reader]  # Store all rows in a list
+            random.shuffle(all_rows)  # Shuffle the rows
+            
+            for row in all_rows:
                 dummy = input("Press enter for a new puzzle")
                 puzzle_id, fen, moves, rating, *_ = row  # Unpack only the first 4 columns, ignore the rest
 
@@ -173,35 +180,43 @@ class ChessGUI:
                 # Iterate through pairs of moves
                 for i in range(0, len(moves_list), 2):
                     puzzle_move = moves_list[i]
+                    user_move = 0
+                    player_move = 1
 
                     # Apply the first puzzle move
                     dummy = input("Press enter to see opponents move")
+
                     if chess.Move.from_uci(puzzle_move) in board.legal_moves:
                         board.push(chess.Move.from_uci(puzzle_move))
                         # Display board
                         self.make_move(puzzle_move)
                     else:
-                        print(f"Illegal puzzle move: {puzzle_move}. Skipping to next puzzle.")
-                        break
+                        print("Illegal move. Try again.")
+                        continue
 
-                    if i+1 < len(moves_list):
+                    while user_move != player_move:
                         player_move = moves_list[i+1]
                         print(player_move)
                         # Ask for the player's move
                         user_move = input('Your move (in UCI format, e.g., e2e4): ')
 
-                        # Check if the move is the same as the puzzle's suggested move
-                        if user_move != player_move:
-                            print("Incorrect move. Try again.")
-                            continue
-                        
-                        # Check if the move is legal
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
                             self.make_move(user_move)
-                        else:
-                            print("Illegal move. Try again.")
-                            continue
+                            if user_move != player_move:
+                                print("Incorrect move. Try again.")
+                                continue
+                            else:
+                                print("Correct move!\n")
+                                continue
+
+                print("Puzzle completed!\n")
+
+
+
+
+                
+
 
 
 if __name__ == "__main__":
