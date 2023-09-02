@@ -51,11 +51,11 @@ class ChessGUI:
         move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
         move_button.pack()
 
-        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
-        move_button.pack()
+        hint_button = tk.Button(new_frame, text="Hint", command=lambda: self.hint())
+        hint_button.pack()
 
-        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
-        move_button.pack()
+        nextpuzzle_button = tk.Button(new_frame, text="Next puzzle", command=lambda: self.nextpuzzle())
+        nextpuzzle_button.pack()
 
         self.current_screen.pack_forget()  # Hide the current screen
         new_frame.pack()  # Show the new screen
@@ -227,6 +227,16 @@ class ChessGUI:
                                 continue
 
                 print("Puzzle completed!\n")
+
+    def hint():
+        print("to be done")
+
+    def nextpuzzle():
+        print("to be done")
+
+
+
+
 
 
 
