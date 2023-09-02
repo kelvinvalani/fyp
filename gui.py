@@ -51,6 +51,12 @@ class ChessGUI:
         move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
         move_button.pack()
 
+        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
+        move_button.pack()
+
+        move_button = tk.Button(new_frame, text="Make move", command=lambda: self.solve_puzzle(csv_file_path))
+        move_button.pack()
+
         self.current_screen.pack_forget()  # Hide the current screen
         new_frame.pack()  # Show the new screen
         self.screens.append(new_frame)
@@ -89,6 +95,16 @@ class ChessGUI:
                 x = col * 50+25
                 y = row * 50+25
                 self.canvas.create_text(x, y, text=piece, font=("Arial", 24),fill="black")
+
+            # Draw the row numbers (1 to 8)
+        for row in range(8):
+            y = row * 50 + 25
+            self.canvas.create_text(410, y, text=str(8 - row), font=("Arial", 14), fill="black")
+
+        # Draw the column letters (a to h)
+        for col in range(8):
+            x = col * 50 + 25
+            self.canvas.create_text(x, 410, text=chr(col + ord('a')), font=("Arial", 14), fill="black")
 
     def make_move(self,move):
         self.update_chessboard(str(move))
@@ -146,7 +162,7 @@ class ChessGUI:
             new_row = []
             for char in row:
                 if char.isdigit():
-                    new_row.extend(['.'] * int(char))
+                    new_row.extend([''] * int(char))
                 else:
                     new_row.append(pieces_mapping.get(char, char))
             board.append(new_row)
