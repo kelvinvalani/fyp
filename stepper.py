@@ -88,7 +88,7 @@ class MotorController:
 
 try:
     # Create instances for each motor with their respective pins
-    gantry = MotorController(motor1_in1=17, motor1_in2=18, motor1_in3=27, motor1_in4=22,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
+    gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
 
     delay = 0.001
     steps = 100  # Number of steps to move the motor
@@ -97,23 +97,23 @@ try:
 
     # 5.67cm = 100 steps when moving diaganol
     
-    # gantry.move(delay, steps, "forward","forward")    # Move up
-    # time.sleep(1)
-    # gantry.move(delay, steps, "backward","backward") # Move down
-    # time.sleep(1)
-    # gantry.move(delay, steps, "forward","backward") # Move left
-    # time.sleep(1)
-    # gantry.move(delay, steps, "backward","forward") # Move right
-    # time.sleep(1)
-    # gantry.move(delay, steps, "forward","none") # move north west
-    # time.sleep(1)
-    # gantry.move(delay, steps, "none","forward") # move north east
-    # time.sleep(1)
-    # gantry.move(delay, steps, "backward","none") # move south east
-    # time.sleep(1)
-    # gantry.move(delay, steps, "none","backward") # move south west
+    gantry.move(delay, steps, "forward","forward")    # Move up
+    time.sleep(1)
+    gantry.move(delay, steps, "backward","backward") # Move down
+    time.sleep(1)
+    gantry.move(delay, steps, "forward","backward") # Move left
+    time.sleep(1)
+    gantry.move(delay, steps, "backward","forward") # Move right
+    time.sleep(1)
+    gantry.move(delay, steps, "forward","none") # move north west
+    time.sleep(1)
+    gantry.move(delay, steps, "none","forward") # move north east
+    time.sleep(1)
+    gantry.move(delay, steps, "backward","none") # move south east
+    time.sleep(1)
+    gantry.move(delay, steps, "none","backward") # move south west
 
-    # gantry.move(delay, steps, "none","none") # stationary
+    gantry.move(delay, steps, "none","none") # stationary
 
 
 
