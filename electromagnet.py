@@ -27,18 +27,19 @@ class ElectromagnetController:
     def cleanup(self):
         GPIO.cleanup()
 
-try:
-    relay_pin = 17
-    magnet_controller = ElectromagnetController(relay_pin)
-    
-    while True:
-        user_input = input("Press '1' to toggle the electromagnet, 'q' to quit: ")
-        if user_input == '1':
-            magnet_controller.toggle()
-        elif user_input == 'q':
-            break
-    
-except KeyboardInterrupt:
-    pass
-finally:
-    magnet_controller.cleanup()
+if __name__ == "__main__":
+    try:
+        relay_pin = 17
+        magnet_controller = ElectromagnetController(relay_pin)
+        
+        while True:
+            user_input = input("Press '1' to toggle the electromagnet, 'q' to quit: ")
+            if user_input == '1':
+                magnet_controller.toggle()
+            elif user_input == 'q':
+                break
+        
+    except KeyboardInterrupt:
+        pass
+    finally:
+        magnet_controller.cleanup()

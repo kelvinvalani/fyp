@@ -1,12 +1,13 @@
 from stepper import *
+import time
 from electromagnet import *
-
 class Driver:
-    def __init__(self):
-        self.gantry = MotorController(motor1_in1=17, motor1_in2=18, motor1_in3=27, motor1_in4=22,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
+    def __init__(self,location):
+        self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
         self.steps_per_square = 50
         self.magnet = ElectromagnetController(17)
-        self.location = "A1"
+        self.location = location
+        self.delay = 0.001
 
 
     def get_directions(self,start_square, target_square):
@@ -37,19 +38,20 @@ class Driver:
         horizontal_steps = horizontal_distance*self.steps_per_square
         vertical_steps = vertical_distance*self.steps_per_square
 
-        if horizontal_direction == "up":
-            self.gantry.move(delay, horizontal_steps, "forward","forward")
-        elif horizontal_direction == "down":
-            self.gantry.move(delay, horizontal_steps, "backward","backward")
+        if vertical_direction == "up":
+            self.gantry.move(self.delay, vertical_steps, "forward","forward")
+        elif vertical_direction == "down":
+            self.gantry.move(self.delay, vertical_steps, "backward","backward")
         else:
             pass
 
-        if vertical_direction == "right":
-            self.gantry.move(delay, vertical_steps, "backward","forward")
-        elif vertical_direction == "left":
-            self.gantry.move(delay, vertical_steps,"forward","backward")
+        if horizontal_direction == "right":
+            self.gantry.move(self.delay, horizontal_steps, "backward","forward")
+        elif horizontal_direction == "left":
+            self.gantry.move(self.delay, horizontal_steps,"forward","backward")
         else:
             pass
+        time.sleep(2)
 
     def move_piece(self,start_square,end_square):
         start_square_directions = self.get_directions(self.location,start_square)
@@ -62,6 +64,23 @@ class Driver:
 
         self.magnet.turn_off()
 
+    def cleanup(self):
+        GPIO.cleanup()
+
+if __name__ == "__main__":
+
+    try:
+        # Create instances for each motor with their respective pins
+        driver = Driver("H4")
+        driver.move_to_square(10,0,"left","none")
 
 
 
+
+
+
+        time.sleep(1)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        driver.cleanup()
