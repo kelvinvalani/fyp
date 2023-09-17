@@ -73,6 +73,7 @@ if __name__ == "__main__":
         # Create instances for each motor with their respective pins
         driver = Driver("A1")
         driver.move_piece("A1","A2")
+        driver.gantry.manual_control()
 
 
 

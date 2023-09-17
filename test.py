@@ -1,24 +1,23 @@
-def fen_to_2d_array(fen):
-    pieces_mapping = {
-        'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
-        'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
-    }
+import sys
+from pynput import keyboard
 
-    rows = fen.split('/')
-    board = []
+def on_key_press(key):
+    try:
+        if key == keyboard.Key.space:
+            print('Space bar pressed')
+        elif key in [keyboard.Key.left, keyboard.Key.right, keyboard.Key.up, keyboard.Key.down]:
+            print(f'Arrow key pressed: {key}')
+        elif key.char == 'q':
+            print('Exiting the script.')
+            sys.exit()  # Exit the script when 'q' is pressed
+    except AttributeError:
+        # Handle non-special keys if needed
+        pass
 
-    for row in rows:
-        new_row = []
-        for char in row:
-            if char.isdigit():
-                new_row.extend(['.'] * int(char))
-            else:
-                new_row.append(pieces_mapping.get(char, char))
-        board.append(new_row)
+def on_key_release(key):
+    # You can add code here to handle key releases if needed
+    pass
 
-    return board
-
-fen = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR"
-chess_board = fen_to_2d_array(fen)
-
-print(chess_board)
+# Create a listener for keyboard events
+with keyboard.Listener(on_press=on_key_press, on_release=on_key_release) as listener:
+    listener.join()
