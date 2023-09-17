@@ -64,6 +64,31 @@ class Driver:
 
         self.magnet.turn_off()
 
+    def manual_control(self):
+        direction = input("Enter a direction (up, down, left, right)")
+        distance = input("Enter distance in mm")
+        user_input = input("Press '1' to toggle the electromagnet, 'q' to quit: ")
+
+        if user_input == '1':
+            self.magnet.toggle()
+
+        steps = distance*self.steps_per_square
+
+
+        if direction == "up":
+            self.gantry.move(self.delay, steps, "forward","forward")
+        elif direction == "down":
+            self.gantry.move(self.delay, steps, "backward","backward")
+        else:
+            pass
+
+        if direction == "right":
+            self.gantry.move(self.delay, steps, "backward","forward")
+        elif direction == "left":
+            self.gantry.move(self.delay, steps,"forward","backward")
+        else:
+            pass
+
     def cleanup(self):
         GPIO.cleanup()
 
@@ -72,13 +97,10 @@ if __name__ == "__main__":
     try:
         # Create instances for each motor with their respective pins
         driver = Driver("A1")
-        driver.move_piece("A1","A2")
-        driver.gantry.manual_control()
+        #driver.move_piece("A1","A2")
+        while True:
+            driver.manual_control()
 
-
-
-
-        time.sleep(1)
     except KeyboardInterrupt:
         pass
     finally:
