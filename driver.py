@@ -67,8 +67,7 @@ class Driver:
 
     def manual_control(self):
         direction = input("Enter a direction (up, down, left, right)")
-        print("direction")
-        distance = input("Enter distance in cm")
+        distance = int(input("Enter distance in cm"))
         user_input = input("Press '1' to toggle the electromagnet, 'q' to quit: ")
 
         if user_input == '1':
