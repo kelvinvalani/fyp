@@ -1,7 +1,5 @@
 import RPi.GPIO as GPIO
 import time
-import sys
-from pynput import keyboard
 from driver import *
 class MotorController:
     def __init__(self, motor1_in1, motor1_in2, motor1_in3, motor1_in4,motor2_in1, motor2_in2, motor2_in3, motor2_in4):
