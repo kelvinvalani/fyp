@@ -71,10 +71,8 @@ if __name__ == "__main__":
 
     try:
         # Create instances for each motor with their respective pins
-        driver = Driver("H4")
-        driver.move_to_square(10,0,"left","none")
-
-
+        driver = Driver("A1")
+        driver.move_piece("A1","A2")
 
 
 
