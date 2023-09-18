@@ -60,10 +60,11 @@ try:
     #     print(chessboardState)
     chessboardState=[]
     chessboard = HallEffectBoard(0x40)
-    statesA,statesB = chessboard.read_board()
-    chessboardState.append(statesA)
-    chessboardState.append(statesB)
-    print(chessboardState)
+    while True:
+        statesA,statesB = chessboard.read_board()
+        chessboardState.append(statesA)
+        chessboardState.append(statesB)
+        print(chessboardState)
 
         
 except KeyboardInterrupt:
