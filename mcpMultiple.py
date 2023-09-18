@@ -41,8 +41,8 @@ class HallEffectBoard:
         statesB = []
 
         for i in range(0,8):
-            statesA.append(self.read_pin_state(i,self.GPIOA,self.CHIP_ADDRESS))
-            statesB.append(self.read_pin_state(i,self.GPIOB,self.CHIP_ADDRESS))
+            statesA.append(self.read_pin_state(i,self.GPIOA))
+            statesB.append(self.read_pin_state(i,self.GPIOB))
         return statesA,statesB
 
 try:
