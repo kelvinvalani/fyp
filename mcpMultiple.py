@@ -50,7 +50,7 @@ try:
     chessboard = []
     chessboardState = []
     for i in range(64,64+nChips):
-        print(hex(i))
+        print(int(hex(i))+ 0x200)
         chessboard.append(HallEffectBoard(hex(i)))
     while True:
         for i in range(len(chessboardState)) :
