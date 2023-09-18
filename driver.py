@@ -5,7 +5,8 @@ class Driver:
     def __init__(self,location):
         self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
         self.steps_per_square = 50
-        self.magnet = ElectromagnetController(17)
+        self.steps_per_cm = 13
+        self.magnet = ElectromagnetController(13)
         self.location = location
         self.delay = 0.001
 
@@ -64,6 +65,31 @@ class Driver:
 
         self.magnet.turn_off()
 
+    def manual_control(self):
+        direction = input("Enter a direction (up, down, left, right)")
+        distance = int(input("Enter distance in cm"))
+        user_input = input("Press '1' to toggle the electromagnet, 'q' to quit: ")
+
+        if user_input == '1':
+            self.magnet.toggle()
+
+        steps = distance*self.steps_per_cm
+
+
+        if direction == "up":
+            self.gantry.move(self.delay, steps, "forward","forward")
+        elif direction == "down":
+            self.gantry.move(self.delay, steps, "backward","backward")
+        else:
+            pass
+
+        if direction == "right":
+            self.gantry.move(self.delay, steps, "backward","forward")
+        elif direction == "left":
+            self.gantry.move(self.delay, steps,"forward","backward")
+        else:
+            pass
+
     def cleanup(self):
         GPIO.cleanup()
 
@@ -71,15 +97,11 @@ if __name__ == "__main__":
 
     try:
         # Create instances for each motor with their respective pins
-        driver = Driver("H4")
-        driver.move_to_square(10,0,"left","none")
+        driver = Driver("A1")
+        #driver.move_piece("A1","A2")
+        while True:
+            driver.manual_control()
 
-
-
-
-
-
-        time.sleep(1)
     except KeyboardInterrupt:
         pass
     finally:

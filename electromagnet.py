@@ -29,7 +29,7 @@ class ElectromagnetController:
 
 if __name__ == "__main__":
     try:
-        relay_pin = 17
+        relay_pin = 13
         magnet_controller = ElectromagnetController(relay_pin)
         
         while True:
