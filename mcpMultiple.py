@@ -64,6 +64,7 @@ try:
         statesA,statesB = chessboard.read_board()
         chessboardState.append(statesA)
         chessboardState.append(statesB)
+        time.sleep(0.5)
         print(chessboardState)
 
         
