@@ -69,6 +69,3 @@ try:
 except KeyboardInterrupt:
     pass
 
-# Clean up
-for i in range(len(chessboard)):
-    chessboard[i].spi.close()
