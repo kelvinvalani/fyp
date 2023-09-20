@@ -5,6 +5,7 @@ import time
 IODIRB = 0x01  # I/O Direction register for port B
 GPIOB = 0x13   # Input/output register for port B
 GPPUB = 0x0D   # Pull-Up resistor enable register for port B
+GPIOA = 0x12   # Input/output register for port A
 
 # Specify the pin to read
 READ_PIN = 0   # Pin B0
@@ -22,7 +23,7 @@ spi.xfer2([0x40, GPPUB, 0x01])  # Enable pull-up for pin B0
 
 # Read the state of the specified pin
 def read_pin_state(pin):
-    data = spi.xfer2([0x41, GPIOB, 0x00])  # Read port B data
+    data = spi.xfer2([0x41, GPIOA, 0x00])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
 try:
