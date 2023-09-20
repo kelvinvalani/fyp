@@ -65,6 +65,7 @@ try:
         chessboardState.append(statesA)
         chessboardState.append(statesB)
         time.sleep(0.5)
+        print("\n")
         print(chessboardState)
 
         
