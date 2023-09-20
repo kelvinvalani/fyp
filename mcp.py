@@ -26,14 +26,27 @@ def read_pin_state(pin):
     data = spi.xfer2([0x41, GPIOA, 0x00])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
+def read_pin_stateB(pin):
+    data = spi.xfer2([0x41, GPIOB, 0x00])  # Read port B data
+    return (data[2] >> pin) & 1  # Extract the state of the specified pin
 try:
     while True:
-        pin_state = read_pin_state(READ_PIN)
+        pin_statea = read_pin_state(READ_PIN)
         
-        if pin_state == 1:
-            print("Pin is high.")
+        if pin_statea == 1:
+            pass
         else:
-            print("Pin is low.")
+            print("A detected")
+        
+        time.sleep(0.5)
+
+
+        pin_stateb = read_pin_stateB(READ_PIN)
+        
+        if pin_stateb == 1:
+            pass
+        else:
+            print("b detected")
         
         time.sleep(0.5)
         
