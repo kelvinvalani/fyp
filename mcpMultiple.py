@@ -58,7 +58,7 @@ try:
     #         chessboardState.append(statesB)
     #         time.sleep(0.5)
     #     print(chessboardState)
-    chessboard = HallEffectBoard(0x30)
+    chessboard = HallEffectBoard(0x10)
     while True:
         chessboardState = []
         statesA,statesB = chessboard.read_board()
