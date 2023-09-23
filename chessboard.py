@@ -5,7 +5,7 @@ from detectionPCB import *
 class Chessboard:
     def __init__(self):
         self.white_res = HallEffectBoard(0x0)
-        self.columnAB = HallEffectBoard(0x10)
+        self.columnAB = HallEffectBoard(0x70)
         # self.columnCD = HallEffectBoard(0x20)
         # self.columnEF = HallEffectBoard(0x30)
         # self.columnGH = HallEffectBoard(0x40)
