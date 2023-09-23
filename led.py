@@ -15,13 +15,13 @@ try:
     while True:
         # Read the state of the GPIO pin
 
-        sensor_state = mcp1.digitalRead(9)
+        sensor_state = mcp1.readGPIO(9)
         print(sensor_state)
         
-        if sensor_state == MCP23S17.LEVEL_HIGH:
-            print("No magnetic field")
-        else:
-            print("Magnetic field detected!")
+        # if sensor_state == MCP23S17.LEVEL_HIGH:
+        #     print("No magnetic field")
+        # else:
+        #     print("Magnetic field detected!")
         
         time.sleep(0.5)  # Delay to avoid rapid reading
 
