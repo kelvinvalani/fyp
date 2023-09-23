@@ -32,9 +32,9 @@ class Chessboard:
 
 if __name__ == "__main__":
     chessboard = Chessboard()
-    current_board = chessboard.read_board_state()
     try:
         while True:
+            current_board = chessboard.read_board_state()
             chessboard.printLocations(current_board)
 
     except KeyboardInterrupt:
