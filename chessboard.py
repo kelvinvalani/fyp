@@ -19,7 +19,7 @@ class Chessboard:
         # columnG,columnH = self.columnGH.read_board()
         #black_res_left,black_res_right = self.black_res()
 
-        chessBoard = [white_res_left,white_res_right,columnA,columnB,columnC,columnD,columnE,columnF,columnG,columnH]
+        chessBoard = [white_res_left,white_res_right]
 
         return chessBoard
 
