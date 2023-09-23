@@ -12,7 +12,7 @@ class Chessboard:
         #self.black_res = HallEffectBoard(0x50)
 
     def read_board_state(self):
-        white_res_left,white_res_right = self.white_res()
+        white_res_left,white_res_right = self.white_res.read_board()
         columnA,columnB = self.columnAB.read_board()
         columnC,columnD = self.columnCD.read_board()
         columnE,columnF = self.columnEF.read_board()
