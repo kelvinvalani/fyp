@@ -44,12 +44,6 @@ try:
         else:
             print("Pin is low.")
 
-        pin_state = read_pin_state(READ_PIN,GPIOB)
-        
-        if pin_state == 1:
-            print("Pin is high.")
-        else:
-            print("Pin is low.")
         
         time.sleep(0.5)
         
