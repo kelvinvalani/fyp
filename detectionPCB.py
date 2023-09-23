@@ -45,30 +45,19 @@ class HallEffectBoard:
             statesB.append(self.read_pin_state(i,self.GPIOB))
         return statesA,statesB
 
-try:
-    # nChips = 1
-    # chessboard = []
-    # chessboardState = []
-    # for i in range(64,64+nChips):
-    #     chessboard.append(HallEffectBoard(hex(i)))
-    # while True:
-    #     for i in range(len(chessboardState)) :
-    #         statesA,statesB = chessboard[i].read_board()
-    #         chessboardState.append(statesA)
-    #         chessboardState.append(statesB)
-    #         time.sleep(0.5)
-    #     print(chessboardState)
-    chessboard = HallEffectBoard(0x10)
-    while True:
-        chessboardState = []
-        statesA,statesB = chessboard.read_board()
-        chessboardState.append(statesA)
-        chessboardState.append(statesB)
-        time.sleep(0.5)
-        print("\n")
-        print(chessboardState)
+if __name__ == "__main__":
+    try:
 
-        
-except KeyboardInterrupt:
-    pass
+        while True:
+            chessboardState = []
+            statesA,statesB = chessboard.read_board()
+            chessboardState.append(statesA)
+            chessboardState.append(statesB)
+            time.sleep(0.5)
+            print("\n")
+            print(chessboardState)
+
+            
+    except KeyboardInterrupt:
+        pass
 

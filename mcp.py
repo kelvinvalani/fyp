@@ -36,20 +36,22 @@ def read_pin_state(pin,port):
     print(data)
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
-try:
-    while True:
-        pin_state = read_pin_state(READ_PIN,GPIOA)
-        
-        if pin_state == 1:
-            print("Pin is high.")
-        else:
-            print("Pin is low.")
 
-        
-        time.sleep(0.5)
-        
-except KeyboardInterrupt:
-    pass
+if __name__ == "__main__":
+    try:
+        while True:
+            pin_state = read_pin_state(READ_PIN,GPIOA)
+            
+            if pin_state == 1:
+                print("Pin is high.")
+            else:
+                print("Pin is low.")
 
-# Clean up
-spi.close()
+            
+            time.sleep(0.5)
+            
+    except KeyboardInterrupt:
+        pass
+
+    # Clean up
+    spi.close()
