@@ -47,7 +47,7 @@ class HallEffectBoard:
 
 if __name__ == "__main__":
     try:
-        chessboard = HallEffectBoard(0b0100111)
+        chessboard = HallEffectBoard(0x20)
         while True:
             chessboardState = []
             statesA,statesB = chessboard.read_board()
