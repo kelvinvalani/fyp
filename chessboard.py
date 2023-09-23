@@ -27,7 +27,7 @@ class Chessboard:
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == 0:
-                    print("Piece detecetd on square " (i,j))
+                    print("Piece detecetd on square " , (i,j))
 
 
 if __name__ == "__main__":
