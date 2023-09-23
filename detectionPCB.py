@@ -47,7 +47,7 @@ class HallEffectBoard:
 
 if __name__ == "__main__":
     try:
-        chessboard = HallEffectBoard(0x47)
+        chessboard = HallEffectBoard(0x20)
         while True:
             chessboardState = []
             statesA,statesB = chessboard.read_board()
@@ -59,5 +59,6 @@ if __name__ == "__main__":
 
             
     except KeyboardInterrupt:
+        chessboard.spi.close()
         pass
 
