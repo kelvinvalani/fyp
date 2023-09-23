@@ -27,6 +27,7 @@ class Chessboard:
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == 0:
+                    print(board)
                     print("Piece detecetd on square " , (i,j))
 
 
@@ -35,7 +36,6 @@ if __name__ == "__main__":
     try:
         while True:
             current_board = chessboard.read_board_state()
-            print(current_board)
             chessboard.printLocations(current_board)
             time.sleep(2)
 
