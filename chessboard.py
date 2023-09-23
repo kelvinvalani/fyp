@@ -35,6 +35,7 @@ if __name__ == "__main__":
     try:
         while True:
             current_board = chessboard.read_board_state()
+            print(current_board)
             chessboard.printLocations(current_board)
 
     except KeyboardInterrupt:
