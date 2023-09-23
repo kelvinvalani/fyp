@@ -5,18 +5,18 @@ from detectionPCB import *
 class Chessboard:
     def __init__(self):
         self.white_res = HallEffectBoard(0x0)
-        self.columnAB = HallEffectBoard(0x10)
-        self.columnCD = HallEffectBoard(0x20)
-        self.columnEF = HallEffectBoard(0x30)
-        self.columnGH = HallEffectBoard(0x40)
+        # self.columnAB = HallEffectBoard(0x10)
+        # self.columnCD = HallEffectBoard(0x20)
+        # self.columnEF = HallEffectBoard(0x30)
+        # self.columnGH = HallEffectBoard(0x40)
         #self.black_res = HallEffectBoard(0x50)
 
     def read_board_state(self):
         white_res_left,white_res_right = self.white_res.read_board()
-        columnA,columnB = self.columnAB.read_board()
-        columnC,columnD = self.columnCD.read_board()
-        columnE,columnF = self.columnEF.read_board()
-        columnG,columnH = self.columnGH.read_board()
+        # columnA,columnB = self.columnAB.read_board()
+        # columnC,columnD = self.columnCD.read_board()
+        # columnE,columnF = self.columnEF.read_board()
+        # columnG,columnH = self.columnGH.read_board()
         #black_res_left,black_res_right = self.black_res()
 
         chessBoard = [white_res_left,white_res_right,columnA,columnB,columnC,columnD,columnE,columnF,columnG,columnH]
