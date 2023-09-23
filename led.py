@@ -15,7 +15,9 @@ try:
     while True:
         # Read the state of the GPIO pin
 
-        sensor_state = mcp1.readGPIO()
+        sensor_state = []
+        for i in range(0, 16):
+            sensor_state.append(mcp1.digitalRead(i))
         print(sensor_state)
         
         # if sensor_state == MCP23S17.LEVEL_HIGH:
