@@ -68,11 +68,10 @@ class Driver:
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","forward")
         time.sleep(0.1)
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","forward")
-        time.sleep(0.1)
+        time.sleep(1)
 
         end_square_directions = self.get_directions(self.location,end_square)
         self.move_to_square(end_square_directions["horizontal_distance"],end_square_directions["vertical_distance"],end_square_directions["horizontal_direction"],end_square_directions["vertical_direction"])
-        time.sleep(0.1)
         #moving back in the way
 
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
