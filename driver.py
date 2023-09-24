@@ -1,3 +1,4 @@
+import math
 from stepper import *
 import time
 from electromagnet import *
@@ -73,7 +74,7 @@ class Driver:
         if user_input == '1':
             self.magnet.toggle()
 
-        steps = distance*self.steps_per_cm
+        steps = math.ceil(distance*self.steps_per_cm)
 
 
         if direction == "up":
