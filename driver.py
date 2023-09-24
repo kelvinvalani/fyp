@@ -62,12 +62,19 @@ class Driver:
         self.location = start_square
         self.magnet.turn_on()
 
+        #moveing out of the way
+
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","forward")
+        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","forward")
+
 
         end_square_directions = self.get_directions(self.location,end_square)
         self.move_to_square(end_square_directions["horizontal_distance"],end_square_directions["vertical_distance"],end_square_directions["horizontal_direction"],end_square_directions["vertical_direction"])
 
+        #moving back in the way
+
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
+        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","backward")
         self.magnet.turn_off()
         self.location = end_square
 
