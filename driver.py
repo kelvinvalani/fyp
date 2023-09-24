@@ -14,7 +14,7 @@ class Driver:
 
     def get_directions(self,start_square, target_square):
         # Define a dictionary to map letters to column indices
-        column_map = {chr(ord('A') + i): i for i in range(8)}
+        column_map = {chr(ord('A') + i): i for i in range(12)}
 
         # Parse the start and target squares to extract row and column
         start_column, start_row = column_map[start_square[0]], int(start_square[1])

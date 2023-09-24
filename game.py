@@ -11,7 +11,8 @@ class ChessGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Chess puzzles")
-        
+        self.whiteGrave = 0
+        self.blackGrave = 0
         self.chessboard = []
         self.driver = Driver("A1")
         self.main_frame = tk.Frame(self.root)
@@ -179,9 +180,30 @@ class ChessGUI:
 
     
     def make_robot_move(self,move):
-        self.update_chessboard(str(move))
         start_square = move.upper()[:2]
         end_square = move.upper()[2:]
+
+        start_square = chr(ord(start_square[0])+2)+start_square[1]
+        end_square = chr(ord(end_square[0])+2)+end_square[1]
+        
+        dest_col, dest_row = ord(move[2]) - ord('a'), 8 - int(move[3])
+        if self.chessboard[dest_row][dest_col] != ' ':
+            if self.chessboard[dest_row][dest_col] in  ['♜', '♞', '♝', '♛', '♚','♟']:
+                if self.blackGrave < 8:
+                    grave_square = "K" + str(self.blackGrave + 1)
+                else:
+                    grave_square = "L" + str(self.blackGrave - 8 + 1)
+            else:
+                if self.whiteGrave < 8:
+                    grave_square = "A" + str(self.whiteGrave + 1)
+                else:
+                    grave_square = "B" + str(self.whiteGrave - 8 + 1)
+                            
+            self.driver.move_piece(end_square,grave_square)
+
+        self.update_chessboard(str(move))
+
+
         self.driver.move_piece(start_square, end_square)
 
     def make_move(self,move):
