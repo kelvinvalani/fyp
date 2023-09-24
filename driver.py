@@ -72,7 +72,7 @@ class Driver:
 
         end_square_directions = self.get_directions(self.location,end_square)
         self.move_to_square(end_square_directions["horizontal_distance"],end_square_directions["vertical_distance"],end_square_directions["horizontal_direction"],end_square_directions["vertical_direction"])
-
+        time.sleep(0.1)
         #moving back in the way
 
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
@@ -114,9 +114,9 @@ if __name__ == "__main__":
     try:
         # Create instances for each motor with their respective pins
         driver = Driver("A1")
-        #driver.move_piece("A1","A2")
-        while True:
-           driver.manual_control()
+        driver.move_piece("A1","A2")
+        # while True:
+        #    driver.manual_control()
 
     except KeyboardInterrupt:
         pass
