@@ -65,7 +65,7 @@ class Driver:
         #moveing out of the way
 
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","forward")
-        time.sleep(0.1)
+        time.sleep(1)
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","forward")
 
 
@@ -75,7 +75,7 @@ class Driver:
         #moving back in the way
 
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
-        time.sleep(0.1)
+        time.sleep(1)
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","backward")
         self.magnet.turn_off()
         self.location = end_square
