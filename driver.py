@@ -114,8 +114,8 @@ if __name__ == "__main__":
         # Create instances for each motor with their respective pins
 
         driver = Driver("A1")
-        input = input("1 for manual 2 for test")
-        if input == "1":
+        choice = input("1 for manual 2 for test")
+        if choice == "1":
             while True:
                 driver.manual_control()
         else:
