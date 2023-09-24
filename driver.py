@@ -56,14 +56,18 @@ class Driver:
         time.sleep(2)
 
     def move_piece(self,start_square,end_square):
+
         start_square_directions = self.get_directions(self.location,start_square)
         self.move_to_square(start_square_directions["horizontal_distance"],start_square_directions["vertical_distance"],start_square_directions["horizontal_direction"],start_square_directions["vertical_direction"])
         self.location = start_square
         self.magnet.turn_on()
 
+        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","forward")
+
         end_square_directions = self.get_directions(self.location,end_square)
         self.move_to_square(end_square_directions["horizontal_distance"],end_square_directions["vertical_distance"],end_square_directions["horizontal_direction"],end_square_directions["vertical_direction"])
 
+        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
         self.magnet.turn_off()
 
     def manual_control(self):
