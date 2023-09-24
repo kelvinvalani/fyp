@@ -69,6 +69,7 @@ class Driver:
 
         self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
         self.magnet.turn_off()
+        self.location = end_square
 
     def manual_control(self):
         direction = input("Enter a direction (up, down, left, right)")
