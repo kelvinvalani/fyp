@@ -112,10 +112,15 @@ if __name__ == "__main__":
 
     try:
         # Create instances for each motor with their respective pins
+
         driver = Driver("A1")
-        driver.move_piece("A1","A2")
-        # while True:
-        #    driver.manual_control()
+        input = input("1 for manual 2 for test")
+        if input == "1":
+            while True:
+                driver.manual_control()
+        else:
+            driver.move_piece("A1","A2")
+
 
     except KeyboardInterrupt:
         pass
