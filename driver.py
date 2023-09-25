@@ -25,8 +25,20 @@ class Driver:
         vertical_distance = abs(target_row - start_row)
 
         # Determine the direction of movement
-        horizontal_direction = "right" if target_column > start_column else "left"
-        vertical_direction = "up" if target_row > start_row else "down"
+        
+        if target_column > start_column:
+            horizontal_direction = "right"
+        elif target_column < start_column:
+            horizontal_direction = "left"
+        else:
+            horizontal_direction = None
+
+        if target_row > start_row:
+            vertical_direction = "up"
+        elif target_row < start_row:
+            vertical_direction = "down"
+        else:
+            vertical_direction = None
 
         # Return the distance and direction
         return {
@@ -36,47 +48,92 @@ class Driver:
             "vertical_direction": vertical_direction,
         }
 
-    def move_to_square(self,horizontal_distance,vertical_distance,horizontal_direction,vertical_direction):
+    def move_to_square(self,start_square_directions,current,dest):
+
+
+        horizontal_distance,vertical_distance,horizontal_direction,vertical_direction = start_square_directions["horizontal_distance"],start_square_directions["vertical_distance"],start_square_directions["horizontal_direction"],start_square_directions["vertical_direction"]
         horizontal_steps = horizontal_distance*self.steps_per_square
         vertical_steps = vertical_distance*self.steps_per_square
 
-        if vertical_direction == "up":
-            self.gantry.move(self.delay, vertical_steps, "forward","forward")
-        elif vertical_direction == "down":
-            self.gantry.move(self.delay, vertical_steps, "backward","backward")
-        else:
-            pass
+        if vertical_steps != 0:
+            if current[0] == 'L':
+                #move left
+                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+            else:
+                #move right
+                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
 
-        if horizontal_direction == "right":
-            self.gantry.move(self.delay, horizontal_steps, "backward","forward")
-        elif horizontal_direction == "left":
-            self.gantry.move(self.delay, horizontal_steps,"forward","backward")
-        else:
-            pass
+            #move vertically
+            if vertical_direction == "up":
+                self.gantry.move(self.delay, vertical_steps, "forward","forward")
+            else:
+                self.gantry.move(self.delay, vertical_steps, "backward","backward")
+
+            if horizontal_direction == None:
+
+                if current[0] == 'L':
+                    #move right to slot
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                else:
+                    #move left tp slot
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+            else:
+
+                if dest[1] == '8':
+                    #move down
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                else:
+                    #move up
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+
+                if current[0] == 'L':
+                    #move right to slot
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                else:
+                    #move left tp slot
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+
+
+
+        if horizontal_steps != 0:
+
+            if vertical_direction == None:
+                if dest[1] == '8':
+                    #move down
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                else:
+                    #move up
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+
+            if horizontal_direction == "left":
+                self.gantry.move(self.delay, horizontal_steps, "forward","backward")
+            else:
+                self.gantry.move(self.delay, horizontal_steps, "backward","forward")
+
+            if dest[1] == '8':
+                #move up slot
+                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+            else:
+                #move down slot
+                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+
+
         time.sleep(2)
 
     def move_piece(self,start_square,end_square):
 
         start_square_directions = self.get_directions(self.location,start_square)
-        self.move_to_square(start_square_directions["horizontal_distance"],start_square_directions["vertical_distance"],start_square_directions["horizontal_direction"],start_square_directions["vertical_direction"])
-        time.sleep(0.1)
+        self.move_to_square(start_square_directions,self.location,start_square)
+     
         self.location = start_square
         self.magnet.turn_on()
 
-        #moveing out of the way
 
-        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","forward")
-        time.sleep(0.1)
-        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","forward")
-        time.sleep(1)
 
         end_square_directions = self.get_directions(self.location,end_square)
-        self.move_to_square(end_square_directions["horizontal_distance"],end_square_directions["vertical_distance"],end_square_directions["horizontal_direction"],end_square_directions["vertical_direction"])
-        #moving back in the way
+        self.move_to_square(end_square_directions,self.location,end_square)
 
-        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "backward","backward")
-        time.sleep(0.1)
-        self.gantry.move(self.delay, math.ceil(self.steps_per_square/2), "forward","backward")
+
         self.magnet.turn_off()
         self.location = end_square
 
@@ -119,7 +176,8 @@ if __name__ == "__main__":
             while True:
                 driver.manual_control()
         else:
-            driver.move_piece("A1","A2")
+            driver.move_piece("L8","L4")
+            driver.move_piece("A4","A1")
 
 
     except KeyboardInterrupt:
