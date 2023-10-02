@@ -33,14 +33,13 @@ spi.xfer2([0x40, GPPUA, 0xFF])  # Enable pull-up for pin B0
 # Read the state of the specified pin
 def read_pin_state(pin,port):
     data = spi.xfer2([0x41, port, 0x00])  # Read port B data
-    print(data)
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
 
 if __name__ == "__main__":
     try:
         while True:
-            pin_state = read_pin_state(READ_PIN,GPIOA)
+            pin_state = read_pin_state(READ_PIN,GPIOB)
             
             if pin_state == 1:
                 print("Pin is high.")
