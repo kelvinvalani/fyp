@@ -4,22 +4,24 @@ from detectionPCB import *
 
 class Chessboard:
     def __init__(self):
-        self.white_res = HallEffectBoard(0x0)
-        #self.columnAB = HallEffectBoard(0x10)
-        # self.columnCD = HallEffectBoard(0x20)
-        # self.columnEF = HallEffectBoard(0x30)
-        # self.columnGH = HallEffectBoard(0x40)
-        #self.black_res = HallEffectBoard(0x50)
+        self.columnAB = HallEffectBoard(0x40,0x41)
+        #self.columnCD = HallEffectBoard(0x42,0x43)
+        #self.columnEF = HallEffectBoard(0x44,0x5)
+        #self.columnGH = HallEffectBoard(0x46,0x47)
+        #self.columnIJ = HallEffectBoard(0x48,0x49)
+        #self.columnKL = HallEffectBoard(0x4A,0x4B)
 
     def read_board_state(self):
-        white_res_left,white_res_right = self.white_res.read_board()
-        #columnA,columnB = self.columnAB.read_board()
-        # columnC,columnD = self.columnCD.read_board()
-        # columnE,columnF = self.columnEF.read_board()
-        # columnG,columnH = self.columnGH.read_board()
-        #black_res_left,black_res_right = self.black_res()
 
-        chessBoard = [white_res_left,white_res_right]
+        #columnA,columnB = self.columnAB.read_board()
+        columnC,columnD = self.columnCD.read_board()
+        columnE,columnF = self.columnEF.read_board()
+        columnG,columnH = self.columnGH.read_board()
+        columnI,columnJ = self.columnIJ.read_board()
+        columnK,columnL = self.columnKL.read_board()
+
+
+        chessBoard = [columnC,columnD]
 
         return chessBoard
 
