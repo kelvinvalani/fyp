@@ -12,7 +12,7 @@ GPPUA = 0x0C   # Pull-Up resistor enable register for port A
 address = 0x40
 readAddress = 0x41
 # Specify the pin to read
-READ_PIN = 6   # Pin B0
+READ_PIN = 7   # Pin B0
 
 # SPI setup
 spi = spidev.SpiDev()
