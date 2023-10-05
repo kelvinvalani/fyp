@@ -21,7 +21,7 @@ class Chessboard:
         # columnK,columnL = self.columnKL.read_board()
 
 
-        chessBoard = [columnA,columnB]
+        chessBoard = [columnB,columnA[::-1]]
 
         return chessBoard
 
@@ -29,7 +29,6 @@ class Chessboard:
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == 0:
-                    print(board)
                     print("Piece detecetd on square " , (i,j))
 
 
