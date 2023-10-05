@@ -10,6 +10,7 @@ IODIRA = 0x00  # I/O Direction register for port A
 GPIOA = 0x12   # Input/output register for port A
 GPPUA = 0x0C   # Pull-Up resistor enable register for port A
 address = 0x4E
+readAddress = 0x4F
 # Specify the pin to read
 READ_PIN = 0   # Pin B0
 
@@ -35,15 +36,15 @@ spi.xfer2([address, IODIRA, 0xFF])  # Set pin B0 as input
 spi.xfer2([address, GPPUA, 0xFF])  # Enable pull-up for pin B0
 
 # Read the state of the specified pin
-def read_pin_state(pin,port,address):
-    data = spi.xfer2([0x4F, port,0x00])  # Read port B data
+def read_pin_state(pin,port,readAddress):
+    data = spi.xfer2([readAddress, port,0x00])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
 
 if __name__ == "__main__":
     try:
         while True:
-            pin_state = read_pin_state(READ_PIN,GPIOB,address)
+            pin_state = read_pin_state(READ_PIN,GPIOB,readAddress)
             
             if pin_state == 1:
                 print("Pin is high.")
