@@ -59,39 +59,48 @@ class Driver:
             if current[0] == 'L':
                 #move left
                 self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                time.sleep(1)
             else:
                 #move right
                 self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
-
+                time.sleep(1)
             #move vertically
             if vertical_direction == "up":
                 self.gantry.move(self.delay, vertical_steps, "forward","forward")
+                time.sleep(1)
             else:
                 self.gantry.move(self.delay, vertical_steps, "backward","backward")
+                time.sleep(1)
 
             if horizontal_direction == None:
 
                 if current[0] == 'L':
                     #move right to slot
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                    time.sleep(1)
                 else:
                     #move left tp slot
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                    time.sleep(1)
             else:
 
                 if dest[1] == '8':
                     #move down
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                    time.sleep(1)
                 else:
                     #move up
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                    time.sleep(1)
 
                 if current[0] == 'L':
                     #move right to slot
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                    time.sleep(1)
                 else:
                     #move left tp slot
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                    time.sleep(1)
 
 
 
@@ -101,21 +110,27 @@ class Driver:
                 if dest[1] == '8':
                     #move down
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                    time.sleep(1)
                 else:
                     #move up
                     self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                    time.sleep(1)
 
             if horizontal_direction == "left":
                 self.gantry.move(self.delay, horizontal_steps, "forward","backward")
+                time.sleep(1)
             else:
                 self.gantry.move(self.delay, horizontal_steps, "backward","forward")
+                time.sleep(1)
 
             if dest[1] == '8':
                 #move up slot
                 self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                time.sleep(1)
             else:
                 #move down slot
                 self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                time.sleep(1)
 
 
         time.sleep(2)

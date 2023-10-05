@@ -193,11 +193,16 @@ class ChessGUI:
                     grave_square = "K" + str(self.blackGrave + 1)
                 else:
                     grave_square = "L" + str(self.blackGrave - 8 + 1)
+                
+                self.blackGrave = self.blackGrave + 1
             else:
                 if self.whiteGrave < 8:
                     grave_square = "A" + str(self.whiteGrave + 1)
                 else:
                     grave_square = "B" + str(self.whiteGrave - 8 + 1)
+                
+                self.whiteGrave = self.whiteGrave + 1
+                
                             
             self.driver.move_piece(end_square,grave_square)
 
