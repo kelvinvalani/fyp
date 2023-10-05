@@ -4,7 +4,7 @@ import chess
 import csv
 import time
 import random
-
+from chessboard import *
 from driver import *
 
 class ChessGUI:
@@ -15,6 +15,8 @@ class ChessGUI:
         self.blackGrave = 0
         self.chessboard = []
         self.driver = Driver("A1")
+        self.physical_board = Chessboard()
+        self.prev_board_state = self.physical_board.read_board_state()
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack()
         
@@ -178,6 +180,31 @@ class ChessGUI:
             x = col * 50 + 25
             self.canvas.create_text(x, 408, text=chr(col + ord('a')), font=("Arial", 10), fill="black")
 
+    def detectPlayerMove(self):
+        previousState = self.prev_board_state
+        currentState = self.physical_board.read_board_state()
+        # logic to detect movement
+        source = ''
+        destination = ''
+
+        for i in range(len(previousState)):
+            for j in range(len(previousState[i])):
+                if previousState[i][j] != currentState [i][j]:
+                    if previousState[i][j] == 0:
+                        source = chr(i+65) + str(j+1)
+                    else:
+                        destination = chr(i+65) + str(j+1)
+
+        if source and destination:
+            move = (source+destination).lower()
+            if move[2] in 'abkl':
+                move = "capture"
+        else:
+            move = None
+
+        self.prev_board_state = currentState
+
+        return move
     
     def make_robot_move(self,move):
         start_square = move.upper()[:2]
@@ -322,7 +349,11 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        user_move = input('Your move (in UCI format, e.g., e2e4): ')
+                        
+                        user_move = self.detectPlayerMove()
+
+                        while user_move != None or user_move == "capture":
+                            user_move = self.detectPlayerMove()
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
@@ -333,7 +364,7 @@ class ChessGUI:
                             else:
                                 print("Correct move!\n")
                                 continue
-
+            
                 print("Puzzle completed!\n")
 
     def hint(self):
