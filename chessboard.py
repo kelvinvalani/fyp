@@ -13,12 +13,12 @@ class Chessboard:
 
     def read_board_state(self):
 
-        #columnA,columnB = self.columnAB.read_board()
-        columnC,columnD = self.columnCD.read_board()
-        columnE,columnF = self.columnEF.read_board()
-        columnG,columnH = self.columnGH.read_board()
-        columnI,columnJ = self.columnIJ.read_board()
-        columnK,columnL = self.columnKL.read_board()
+        columnA,columnB = self.columnAB.read_board()
+        # columnC,columnD = self.columnCD.read_board()
+        # columnE,columnF = self.columnEF.read_board()
+        # columnG,columnH = self.columnGH.read_board()
+        # columnI,columnJ = self.columnIJ.read_board()
+        # columnK,columnL = self.columnKL.read_board()
 
 
         chessBoard = [columnC,columnD]
