@@ -9,10 +9,10 @@ GPIOA = 0x12   # Input/output register for port A
 IODIRA = 0x00  # I/O Direction register for port A
 GPIOA = 0x12   # Input/output register for port A
 GPPUA = 0x0C   # Pull-Up resistor enable register for port A
-address = 0x42
-readAddress = 0x43
+address = 0x40
+readAddress = 0x41
 # Specify the pin to read
-READ_PIN = 0   # Pin B0
+READ_PIN = 8   # Pin B0
 
 # SPI setup
 spi = spidev.SpiDev()
@@ -44,7 +44,7 @@ def read_pin_state(pin,port,readAddress):
 if __name__ == "__main__":
     try:
         while True:
-            pin_state = read_pin_state(READ_PIN,GPIOB,readAddress)
+            pin_state = read_pin_state(READ_PIN,GPIOA,readAddress)
             
             if pin_state == 1:
                 print("Pin is high.")
