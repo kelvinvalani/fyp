@@ -29,7 +29,9 @@ class Chessboard:
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == 0:
-                    print(board)
+                    letter = str(i+65)
+                    pos = str(j+1)
+                    print("A piece was detected on " , letter+pos)
 
 
 if __name__ == "__main__":
