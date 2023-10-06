@@ -34,7 +34,7 @@ class HallEffectBoard:
 
     # Read the state of the specified pin
     def read_pin_state(self,pin,port,readAddress):
-        data = self.spi.xfer2([readAddress, port, 0x00])  # Read port B data
+        data = self.spi.xfer2([readAddress, port, 0xFF])  # Read port B data
         return (data[2] >> pin) & 1 # Extract the state of the specified pin
 
     def read_board(self):
