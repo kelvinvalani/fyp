@@ -37,7 +37,7 @@ spi.xfer2([address, GPPUA, 0xFF])  # Enable pull-up for pin B0
 
 # Read the state of the specified pin
 def read_pin_state(pin,port,readAddress):
-    data = spi.xfer2([readAddress, port,0x00])  # Read port B data
+    data = spi.xfer2([readAddress, port,0xFF])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
 
