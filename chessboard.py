@@ -21,7 +21,7 @@ class Chessboard:
         # columnK,columnL = self.columnKL.read_board()
 
 
-        chessBoard = [columnB[::-1],columnA]
+        chessBoard = [columnA,columnB[::-1]]
 
         return chessBoard
 
