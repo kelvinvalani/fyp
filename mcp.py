@@ -21,7 +21,6 @@ spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
 
 # Enable IOCON HAEN
 spi.xfer([0x05, 0x08])
-spi.xfer([0x15, 0x08])
 
 # Configure the specified pin as input
 spi.xfer2([address, IODIRB, 0xFF])  # Set pin B0 as input
