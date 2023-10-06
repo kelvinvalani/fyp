@@ -191,16 +191,10 @@ class ChessGUI:
             for j in range(len(previousState[i])):
                 if previousState[i][j] != currentState [i][j]:
                     if previousState[i][j] == 0:
-                        source = chr(i+65) + str(j+1)
+                        source = chr(i+63) + str(j+1)
                     else:
-                        destination = chr(i+65) + str(j+1)
+                        destination = chr(i+63) + str(j+1)
 
-        if source and destination:
-            move = (source+destination).lower()
-            if move[2] in 'abkl':
-                move = "capture"
-        else:
-            move = None
 
         self.prev_board_state = currentState
 
