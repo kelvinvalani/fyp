@@ -195,7 +195,7 @@ class ChessGUI:
                     else:
                         destination = chr(i+63) + str(j+1)
 
-
+        move = source + destination
         self.prev_board_state = currentState
 
         return move
