@@ -39,7 +39,6 @@ def read_pin_state(pin,port,readAddress):
     data = spi.xfer2([readAddress, port,0xFF])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
 
-
 if __name__ == "__main__":
     try:
         while True:
