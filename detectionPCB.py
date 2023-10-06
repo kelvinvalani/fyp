@@ -6,10 +6,10 @@ class HallEffectBoard:
     def __init__(self,chipAddress,readAddress):
         # Define MCP23S17 registers
         self.IODIRA = 0x00  # I/O Direction register for port A
-        self.GPIOA = 0x12   # Input/output register for port A
+        self.GPIOA = 0x09   # Input/output register for port A
         self.GPPUA = 0x0C   # Pull-Up resistor enable register for port A
         self.IODIRB = 0x01  # I/O Direction register for port B
-        self.GPIOB = 0x13   # Input/output register for port B
+        self.GPIOB = 0x19   # Input/output register for port B
         self.GPPUB = 0x0D   # Pull-Up resistor enable register for port B
         self.CHIP_ADDRESS = chipAddress
         self.CHIP_READ_ADDRESS = readAddress
