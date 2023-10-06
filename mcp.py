@@ -9,8 +9,8 @@ GPIOA = 0x12   # Input/output register for port A
 IODIRA = 0x00  # I/O Direction register for port A
 GPIOA = 0x12   # Input/output register for port A
 GPPUA = 0x0C   # Pull-Up resistor enable register for port A
-address = 0x40
-readAddress = 0x41
+address = 0x20
+readAddress = 0x21
 # Specify the pin to read
 READ_PIN = 7   # Pin B0
 
