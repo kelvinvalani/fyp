@@ -235,7 +235,6 @@ class ChessGUI:
                             
             self.driver.move_piece(end_square,grave_square)
 
-        self.update_chessboard(str(move))
 
 
         self.driver.move_piece(start_square, end_square)
@@ -344,6 +343,7 @@ class ChessGUI:
                         board.push(chess.Move.from_uci(puzzle_move))
                         # Display board
                         # self.make_robot_move(puzzle_move)
+                        self.update_chessboard(str(puzzle_move))
                     else:
                         print("Illegal move. Try again.")
                         continue
