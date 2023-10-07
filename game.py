@@ -332,7 +332,7 @@ class ChessGUI:
                     if chess.Move.from_uci(puzzle_move) in board.legal_moves:
                         board.push(chess.Move.from_uci(puzzle_move))
                         # Display board
-                        self.make_robot_move(puzzle_move)
+                        # self.make_robot_move(puzzle_move)
                     else:
                         print("Illegal move. Try again.")
                         continue
@@ -348,6 +348,7 @@ class ChessGUI:
 
                         while user_move != None or user_move == "capture":
                             user_move = self.detectPlayerMove()
+                            print(user_move)
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
