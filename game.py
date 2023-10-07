@@ -347,6 +347,7 @@ class ChessGUI:
                         user_move = self.detectPlayerMove()
 
                         while user_move != None or user_move == "capture":
+                            time.sleep(5)
                             user_move = self.detectPlayerMove()
                             if user_move:
                                 print(user_move)
