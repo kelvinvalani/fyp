@@ -348,7 +348,8 @@ class ChessGUI:
 
                         while user_move != None or user_move == "capture":
                             user_move = self.detectPlayerMove()
-                            print(user_move)
+                            if user_move:
+                                print(user_move)
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
