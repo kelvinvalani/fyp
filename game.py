@@ -129,14 +129,17 @@ class ChessGUI:
         control_frame = tk.Frame(main_container, bg="lightgray")
         control_frame.pack(side='top', fill='both', expand=True, padx=5, pady=5)
 
-        move_button = tk.Button(control_frame, text="Make move",command=lambda: self.solve_puzzle(csv_file_path))
+        start_button = tk.Button(control_frame, text="Start",command=lambda: self.solve_puzzle(csv_file_path))
         hint_button = tk.Button(control_frame, text="Hint", command=lambda: self.hint())
         nextpuzzle_button = tk.Button(control_frame, text="Next puzzle", command=lambda: self.nextpuzzle())
         back_button = tk.Button(control_frame, text="Back", command=lambda: self.ChessGUI.__init__())
+        make_move_button = tk.Button(control_frame, text="Make move", command=lambda: self.record_move())
+        confirm_move_button = tk.Button(control_frame, text="Make move", command=lambda: self.detectPlayerMove())
+
 
         hint_button.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
         nextpuzzle_button.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
-        move_button.grid(row=0, column=2, padx=5, pady=5, sticky='nsew')
+        start_button.grid(row=0, column=2, padx=5, pady=5, sticky='nsew')
         back_button.grid(row=0, column=3, padx=5, pady=5, sticky='nsew')
 
         control_frame.grid_columnconfigure(0, weight=1)
@@ -182,7 +185,6 @@ class ChessGUI:
 
     def detectPlayerMove(self):
         previousState = self.prev_board_state
-        time.sleep(5)
         currentState = self.physical_board.read_board_state()
         # logic to detect movement
         source = ''
@@ -235,6 +237,9 @@ class ChessGUI:
 
     def make_move(self,move):
         self.update_chessboard(str(move))   
+
+    def record_move(self):
+        self.prev_board_state = self.physical_board.read_board_state()
 
     def update_chessboard(self, move):
         """
@@ -344,14 +349,9 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        self.prev_board_state = self.physical_board.read_board_state()
                         user_move = self.detectPlayerMove()
-
-                        while len(user_move) != 4:
-                            user_move = self.detectPlayerMove()
-                            if user_move:
-                                print(user_move)
-
+                        if user_move:
+                            print(user_move)
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
                             self.make_move(user_move)
