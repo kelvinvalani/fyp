@@ -353,7 +353,7 @@ class ChessGUI:
                         while len(user_move) != 4:
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
-                            if user_move[0] in '?@ij' or user_move[1] in '?@ij':
+                            if user_move[0] in '?@ij' or user_move[2] in '?@ij':
                                 user_move = 'captured'
                             print(user_move)
 
