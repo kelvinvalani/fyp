@@ -355,6 +355,7 @@ class ChessGUI:
                             user_move = self.detectPlayerMove()
                             if user_move[0] in '?@ij' or user_move[2] in '?@ij':
                                 user_move = 'captured'
+                                self.prev_board_state = self.physical_board.read_board_state()
                             print(user_move)
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
