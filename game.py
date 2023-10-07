@@ -19,7 +19,7 @@ class ChessGUI:
         self.prev_board_state = self.physical_board.read_board_state()
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack()
-        
+        self.user_move = ''
         # Define new frames here
         self.chessboard_frame = tk.Frame(self.main_frame, bg="white")
         self.chessboard_frame.pack(pady=20, padx=20, fill=tk.BOTH, expand=True)
@@ -134,7 +134,7 @@ class ChessGUI:
         nextpuzzle_button = tk.Button(control_frame, text="Next puzzle", command=lambda: self.nextpuzzle())
         back_button = tk.Button(control_frame, text="Back", command=lambda: self.ChessGUI.__init__())
         make_move_button = tk.Button(control_frame, text="Make move", command=lambda: self.record_move())
-        confirm_move_button = tk.Button(control_frame, text="Make move", command=lambda: self.detectPlayerMove())
+        confirm_move_button = tk.Button(control_frame, text="confirm move", command=lambda: self.detectPlayerMove())
 
 
         hint_button.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
@@ -205,7 +205,7 @@ class ChessGUI:
 
         move = source + destination
         self.prev_board_state = currentState
-
+        self.user_move = move
         return move.lower()
     
     def make_robot_move(self,move):
@@ -354,9 +354,11 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        user_move = self.detectPlayerMove()
-                        if user_move:
-                            print(user_move)
+                        self.prev_board_state = self.physical_board.read_board_state()
+                        while len(self.user_move) !=4:
+                            user_move = self.detectPlayerMove()
+                            if user_move:
+                                print(user_move)
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
                             self.make_move(user_move)
