@@ -199,10 +199,8 @@ class ChessGUI:
                         destination = chr(i+63) + str(j+1)
 
         move = source + destination
-        if '?@IJ' in move:
-            return 'capture'
-        else:
-            return move.lower()
+
+        return move.lower()
     
     def make_robot_move(self,move):
         start_square = move.upper()[:2]
@@ -355,6 +353,8 @@ class ChessGUI:
                         while len(user_move) != 4:
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
+                            if user_move[0] in '?@ij' or user_move[1] in '?@ij':
+                                user_move = 'captured'
                             print(user_move)
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
