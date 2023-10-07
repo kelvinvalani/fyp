@@ -141,6 +141,9 @@ class ChessGUI:
         nextpuzzle_button.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
         start_button.grid(row=0, column=2, padx=5, pady=5, sticky='nsew')
         back_button.grid(row=0, column=3, padx=5, pady=5, sticky='nsew')
+        make_move_button.grid(row=0, column=3, padx=5, pady=5, sticky='nsew')
+        confirm_move_button.grid(row=0, column=3, padx=5, pady=5, sticky='nsew')
+
 
         control_frame.grid_columnconfigure(0, weight=1)
         control_frame.grid_columnconfigure(1, weight=1)
