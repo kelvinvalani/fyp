@@ -149,6 +149,8 @@ class ChessGUI:
         control_frame.grid_columnconfigure(1, weight=1)
         control_frame.grid_columnconfigure(2, weight=1)
         control_frame.grid_columnconfigure(3, weight=1)
+        control_frame.grid_columnconfigure(4, weight=1)
+        control_frame.grid_columnconfigure(5, weight=1)
 
         # Message Frame
         message_frame = tk.Frame(main_container, bg="white", padx=10, pady=5)
