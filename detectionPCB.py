@@ -20,6 +20,7 @@ class HallEffectBoard:
         self.spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
 
 
+        self.spi.xfer([0x40,0x0A, 0x08])
         # Configure all pins as inputs
         self.spi.xfer2([self.CHIP_ADDRESS, self.IODIRA, 0xFF])  # Set all pins of port B as input
 
