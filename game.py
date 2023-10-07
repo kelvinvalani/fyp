@@ -199,7 +199,7 @@ class ChessGUI:
         move = source + destination
         self.prev_board_state = currentState
 
-        return move
+        return move.lower()
     
     def make_robot_move(self,move):
         start_square = move.upper()[:2]
