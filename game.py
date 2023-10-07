@@ -354,6 +354,7 @@ class ChessGUI:
                         while len(user_move) != 4:
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
+                            print(user_move)
 
                         if chess.Move.from_uci(user_move) in board.legal_moves:
                             board.push(chess.Move.from_uci(user_move))
