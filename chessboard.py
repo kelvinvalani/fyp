@@ -5,7 +5,7 @@ from detectionPCB import *
 class Chessboard:
     def __init__(self):
         self.columnAB = HallEffectBoard(0x40,0x41)
-        self.columnCD = HallEffectBoard(0x4E,0x4F)
+        self.columnCD = HallEffectBoard(0x42,0x43)
         self.columnEF = HallEffectBoard(0x44,0x45)
         # self.columnGH = HallEffectBoard(0x46,0x47)
         # self.columnIJ = HallEffectBoard(0x48,0x49)
@@ -27,7 +27,6 @@ class Chessboard:
         return chessBoard
 
     def printLocations(self,board):
-        print(board)
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == 0:
