@@ -350,7 +350,7 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        while len(user_move) != 4:
+                        while len(user_move) != 4 or user_move != 'captured':
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
                             if user_move[0] in '?@ij' or user_move[2] in '?@ij':
