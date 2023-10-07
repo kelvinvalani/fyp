@@ -182,6 +182,7 @@ class ChessGUI:
 
     def detectPlayerMove(self):
         previousState = self.prev_board_state
+        time.sleep(5)
         currentState = self.physical_board.read_board_state()
         # logic to detect movement
         source = ''
@@ -343,11 +344,10 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        
+                        self.prev_board_state = self.physical_board.read_board_state()
                         user_move = self.detectPlayerMove()
 
-                        while user_move != None or user_move == "capture":
-                            time.sleep(5)
+                        while len(user_move) != 4:
                             user_move = self.detectPlayerMove()
                             if user_move:
                                 print(user_move)
