@@ -199,8 +199,10 @@ class ChessGUI:
                         destination = chr(i+63) + str(j+1)
 
         move = source + destination
-
-        return move.lower()
+        if '?@IJ' in move:
+            return 'capture'
+        else:
+            return move.lower()
     
     def make_robot_move(self,move):
         start_square = move.upper()[:2]
