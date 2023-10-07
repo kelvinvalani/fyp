@@ -9,8 +9,8 @@ GPIOA = 0x12   # Input/output register for port A
 IODIRA = 0x00  # I/O Direction register for port A
 GPIOA = 0x12   # Input/output register for port A
 GPPUA = 0x0C   # Pull-Up resistor enable register for port A
-address = 0x40
-readAddress = 0x41
+address = 0x4A
+readAddress = 0x4B
 # Specify the pin to read
 READ_PIN = 7   # Pin B0
 
@@ -21,7 +21,6 @@ spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
 
 # Enable IOCON HAEN
 spi.xfer([0x05, 0x08])
-spi.xfer([0x15, 0x08])
 
 # Configure the specified pin as input
 spi.xfer2([address, IODIRB, 0xFF])  # Set pin B0 as input
@@ -37,9 +36,8 @@ spi.xfer2([address, GPPUA, 0xFF])  # Enable pull-up for pin B0
 
 # Read the state of the specified pin
 def read_pin_state(pin,port,readAddress):
-    data = spi.xfer2([readAddress, port,0x00])  # Read port B data
+    data = spi.xfer2([readAddress, port,0xFF])  # Read port B data
     return (data[2] >> pin) & 1  # Extract the state of the specified pin
-
 
 if __name__ == "__main__":
     try:
