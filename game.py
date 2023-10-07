@@ -199,7 +199,6 @@ class ChessGUI:
                         destination = chr(i+63) + str(j+1)
 
         move = source + destination
-        self.prev_board_state = currentState
 
         return move.lower()
     
@@ -364,6 +363,7 @@ class ChessGUI:
                                 continue
                             else:
                                 print("Correct move!\n")
+                                self.prev_board_state =self.physical_board.read_board_state()
                                 continue
             
                 print("Puzzle completed!\n")
