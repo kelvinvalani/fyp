@@ -2,6 +2,7 @@ import math
 from stepper import *
 import time
 from electromagnet import *
+from limitSwitch import *
 class Driver:
     def __init__(self,location):
         self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
@@ -10,6 +11,8 @@ class Driver:
         self.magnet = ElectromagnetController(13)
         self.location = location
         self.delay = 0.001
+        self.limitY = LimitSwitch(1)
+        self.limitX = LimitSwitch(7)
 
 
     def get_directions(self,start_square, target_square):
@@ -177,6 +180,24 @@ class Driver:
         else:
             pass
 
+    def relocalise(self):
+        #go bottom left
+        self.limitY.detect()
+        while self.limitY == False:
+            self.gantry.moveDown()
+            self.limitY.detect()
+
+        self.limitX.detect()
+        while self.limitX == False:
+            self.gantry.moveDown()
+            self.limitX.detect()
+
+        self.gantry.move(self.delay, 50, "backward","forward")
+        self.gantry.move(self.delay, 50, "forward","forward")
+        
+
+        
+
     def cleanup(self):
         GPIO.cleanup()
 
@@ -186,10 +207,12 @@ if __name__ == "__main__":
         # Create instances for each motor with their respective pins
 
         driver = Driver("A1")
-        choice = input("1 for manual 2 for test")
+        choice = input("1 for manual 2 relocalise 3 for test")
         if choice == "1":
             while True:
                 driver.manual_control()
+        elif choice == "2":
+            driver.relocalise()
         else:
             driver.move_piece("L8","L4")
             driver.move_piece("A4","A1")
