@@ -342,7 +342,7 @@ class ChessGUI:
                     if chess.Move.from_uci(puzzle_move) in board.legal_moves:
                         board.push(chess.Move.from_uci(puzzle_move))
                         # Display board
-                        # self.make_robot_move(puzzle_move)
+                        self.make_robot_move(puzzle_move)
                         self.update_chessboard(str(puzzle_move))
                     else:
                         print("Illegal move. Try again.")

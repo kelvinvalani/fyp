@@ -6,7 +6,8 @@ from limitSwitch import *
 class Driver:
     def __init__(self,location):
         self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
-        self.steps_per_square = 49
+        self.steps_per_squareY = 49
+        self.steps_per_squareX = 49.5
         self.steps_per_cm = 12.55
         self.magnet = ElectromagnetController(13)
         self.location = location
@@ -55,17 +56,17 @@ class Driver:
 
 
         horizontal_distance,vertical_distance,horizontal_direction,vertical_direction = start_square_directions["horizontal_distance"],start_square_directions["vertical_distance"],start_square_directions["horizontal_direction"],start_square_directions["vertical_direction"]
-        horizontal_steps = horizontal_distance*self.steps_per_square
-        vertical_steps = vertical_distance*self.steps_per_square
+        horizontal_steps = int(horizontal_distance*self.steps_per_squareX)
+        vertical_steps = int(vertical_distance*self.steps_per_squareY)
 
         if vertical_steps != 0:
             if current[0] == 'L':
                 #move left
-                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"forward","backward")
                 time.sleep(1)
             else:
                 #move right
-                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"backward","forward")
                 time.sleep(1)
             #move vertically
             if vertical_direction == "up":
@@ -79,30 +80,30 @@ class Driver:
 
                 if current[0] == 'L':
                     #move right to slot
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"backward","forward")
                     time.sleep(1)
                 else:
                     #move left tp slot
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"forward","backward")
                     time.sleep(1)
             else:
 
                 if dest[1] == '8':
                     #move down
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"backward","backward")
                     time.sleep(1)
                 else:
                     #move up
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"forward","forward")
                     time.sleep(1)
 
                 if current[0] == 'L':
                     #move right to slot
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","forward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"backward","forward")
                     time.sleep(1)
                 else:
                     #move left tp slot
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","backward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareX/2),"forward","backward")
                     time.sleep(1)
 
 
@@ -112,11 +113,11 @@ class Driver:
             if vertical_direction == None:
                 if dest[1] == '8':
                     #move down
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"backward","backward")
                     time.sleep(1)
                 else:
                     #move up
-                    self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                    self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"forward","forward")
                     time.sleep(1)
 
             if horizontal_direction == "left":
@@ -128,11 +129,11 @@ class Driver:
 
             if dest[1] == '8':
                 #move up slot
-                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"forward","forward")
+                self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"forward","forward")
                 time.sleep(1)
             else:
                 #move down slot
-                self.gantry.move(self.delay, math.ceil(self.steps_per_square/2),"backward","backward")
+                self.gantry.move(self.delay, math.ceil(self.steps_per_squareY/2),"backward","backward")
                 time.sleep(1)
 
 
@@ -146,7 +147,7 @@ class Driver:
         self.location = start_square
         self.magnet.turn_on()
 
-
+        time.sleep(1)
 
         end_square_directions = self.get_directions(self.location,end_square)
         self.move_to_square(end_square_directions,self.location,end_square)
@@ -189,7 +190,7 @@ class Driver:
             self.gantry.moveleft()
             self.limitX.detect()
             reachedX = self.limitX.triggered
-            print("reached x: " , reachedX)
+
 
         self.limitY.detect()
         reachedY = self.limitY.triggered
@@ -197,12 +198,12 @@ class Driver:
             self.gantry.moveDown()
             self.limitY.detect()
             reachedY = self.limitY.triggered
-            print("reached y: " , reachedY)
 
 
 
-        self.gantry.move(self.delay, 10, "backward","forward")
-        self.gantry.move(self.delay, 15, "forward","forward")
+
+        self.gantry.move(self.delay, 8, "backward","forward")
+        self.gantry.move(self.delay, 13, "forward","forward")
         
 
         
@@ -223,8 +224,10 @@ if __name__ == "__main__":
         elif choice == "2":
             driver.relocalise()
         else:
-            driver.move_piece("L8","L4")
-            driver.move_piece("A4","A1")
+            driver.move_piece("A1","E2")
+            driver.move_piece("E1","B7")
+            driver.move_piece("G6","A1")
+
 
 
     except KeyboardInterrupt:
