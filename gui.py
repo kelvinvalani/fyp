@@ -94,10 +94,18 @@ class ChessGUI:
         csv_file_path = "./1.easy_puzzles.csv"
         self.show_new_screen("Hard puzzle", csv_file_path)
 
+    def go_back_to_main(self):
+        # Hide the current screen
+        self.current_screen.pack_forget()
+        # Show the main menu screen
+        self.main_frame.pack()
+        self.current_screen = self.main_frame  # Update the current screen
+
     def show_new_screen(self, screen_name, csv_file_path):
         self.current_screen.pack_forget()  # Hide the current screen
         main_container = tk.Frame(root)
         main_container.pack(padx=15, pady=15, expand=True, fill='both')
+        self.current_screen = main_container
 
         # Adding a label to display the screen name
         title_label = tk.Label(main_container, text=screen_name, font=("Arial", 24, "bold"), bg="white")
@@ -127,7 +135,7 @@ class ChessGUI:
         move_button = tk.Button(control_frame, text="Make move",command=lambda: self.solve_puzzle(csv_file_path))
         hint_button = tk.Button(control_frame, text="Hint", command=lambda: self.hint())
         nextpuzzle_button = tk.Button(control_frame, text="Next puzzle", command=lambda: self.nextpuzzle())
-        back_button = tk.Button(control_frame, text="Back", command=lambda: self.ChessGUI.__init__())
+        back_button = tk.Button(control_frame, text="Back", command=self.go_back_to_main)
 
         hint_button.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
         nextpuzzle_button.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
@@ -142,7 +150,7 @@ class ChessGUI:
         # Message Frame
         message_frame = tk.Frame(main_container, bg="white", padx=10, pady=5)
         message_frame.pack(side='bottom', fill='both', expand=True, padx=5, pady=5)
-        self.message_label = tk.Label(message_frame, text='♜ to e8 is checkmate in 3', bg="white", font=("Arial", 16), wraplength=750, justify="left")
+        self.message_label = tk.Label(message_frame, text=' ', bg="white", font=("Arial", 16), wraplength=750, justify="left")
         self.message_label.pack(fill='both', expand=True)     
 
     def draw_board(self):
@@ -247,6 +255,8 @@ class ChessGUI:
             all_rows = [row for row in csv_reader]  # Store all rows in a list
             # random.shuffle(all_rows)  # Shuffle the rows
             
+            global board
+
             for row in all_rows:
                 dummy = input("Press enter for a new puzzle")
                 puzzle_id, fen, moves, rating, *_ = row  # Unpack only the first 4 columns, ignore the rest
@@ -301,6 +311,14 @@ class ChessGUI:
                 print("Puzzle completed!\n")
 
     def hint(self):
+        start_square = player_move[:2]
+        start_square_index = chess.SQUARE_NAMES.index(start_square.lower())
+        piece = board.piece_at(start_square_index)
+        pieces_mapping = {
+            'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+            'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+        }
+        self.message_label.config(text=f"Move the {pieces_mapping.get(piece.symbol(), piece.symbol())} at {start_square}")
         print(f"\n{player_move}")
 
     def nextpuzzle(self):
