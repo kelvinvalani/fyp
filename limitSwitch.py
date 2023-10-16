@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 class LimitSwitch:
-    def __init__(self, switch_pin = None):
+    def __init__(self, switch_pin):
         self.triggered = False
         self.pin = switch_pin
 
@@ -11,12 +11,15 @@ class LimitSwitch:
     def detect(self):
         if GPIO.input(self.pin) == GPIO.HIGH:
             self.triggered = True
-            print("Switch pressed")
+            print("Switch " +str(self.pin) +" is pressed")
         else:
             self.triggered = False
 
 if __name__ == "__main__":
-    siwtch = LimitSwitch(0.1, switch_pin=10)
+    switch1 = LimitSwitch(7)
+    switch2 = LimitSwitch(1)
+
     while True:
-        siwtch.detect()
+        switch1.detect()
+        switch2.detect()
         time.sleep(0.1)

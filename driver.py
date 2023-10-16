@@ -7,12 +7,12 @@ class Driver:
     def __init__(self,location):
         self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
         self.steps_per_square = 50
-        self.steps_per_cm = 13
+        self.steps_per_cm = 12.55
         self.magnet = ElectromagnetController(13)
         self.location = location
         self.delay = 0.001
-        self.limitY = LimitSwitch(1)
-        self.limitX = LimitSwitch(7)
+        self.limitY = LimitSwitch(7)
+        self.limitX = LimitSwitch(1)
 
 
     def get_directions(self,start_square, target_square):
@@ -182,18 +182,27 @@ class Driver:
 
     def relocalise(self):
         #go bottom left
-        self.limitY.detect()
-        while self.limitY == False:
-            self.gantry.moveDown()
-            self.limitY.detect()
 
         self.limitX.detect()
-        while self.limitX == False:
-            self.gantry.moveDown()
+        reachedX = self.limitX.triggered
+        while self.limitX.triggered == False:
+            self.gantry.moveleft()
             self.limitX.detect()
+            reachedX = self.limitX.triggered
+            print("reached x: " , reachedX)
 
-        self.gantry.move(self.delay, 50, "backward","forward")
-        self.gantry.move(self.delay, 50, "forward","forward")
+        self.limitY.detect()
+        reachedY = self.limitY.triggered
+        while self.limitY.triggered == False:
+            self.gantry.moveDown()
+            self.limitY.detect()
+            reachedY = self.limitY.triggered
+            print("reached y: " , reachedY)
+
+
+
+        self.gantry.move(self.delay, 10, "backward","forward")
+        self.gantry.move(self.delay, 15, "forward","forward")
         
 
         
