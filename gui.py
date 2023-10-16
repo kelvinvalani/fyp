@@ -4,7 +4,7 @@ import chess
 import csv
 import time
 import random
-
+import os
 class ChessGUI:
     def __init__(self, root):
         self.root = root
@@ -325,6 +325,7 @@ class ChessGUI:
         print("Skipping to next puzzle.")
 
 if __name__ == "__main__":
+
     root = tk.Tk()
     app = ChessGUI(root)
     root.mainloop()

@@ -81,7 +81,21 @@ class MotorController:
             pass
 
 
+    def moveDown(self):
+        motor1_step_sequence = self.sequence[::-1]
+        motor2_step_sequence = self.sequence[::-1]
+        
+        for i in range(len(motor1_step_sequence)):
+            self.set_step(*motor1_step_sequence[i],*motor2_step_sequence[i])
+            time.sleep(0.001)
 
+    def moveleft(self):
+        motor1_step_sequence = self.sequence
+        motor2_step_sequence = self.sequence[::-1]
+        
+        for i in range(len(motor1_step_sequence)):
+            self.set_step(*motor1_step_sequence[i],*motor2_step_sequence[i])
+            time.sleep(0.001)
 
 
     

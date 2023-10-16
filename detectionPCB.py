@@ -3,7 +3,7 @@ import spidev
 import time
 
 class HallEffectBoard:
-    def __init__(self,chipAddress):
+    def __init__(self,chipAddress,readAddress):
         # Define MCP23S17 registers
         self.IODIRA = 0x00  # I/O Direction register for port A
         self.GPIOA = 0x12   # Input/output register for port A
@@ -12,6 +12,7 @@ class HallEffectBoard:
         self.GPIOB = 0x13   # Input/output register for port B
         self.GPPUB = 0x0D   # Pull-Up resistor enable register for port B
         self.CHIP_ADDRESS = chipAddress
+        self.CHIP_READ_ADDRESS = readAddress
 
         # SPI setup
         self.spi = spidev.SpiDev()
@@ -19,6 +20,7 @@ class HallEffectBoard:
         self.spi.max_speed_hz = 1000000  # Set SPI speed (can adjust as needed)
 
 
+        self.spi.xfer([0x40,0x0A, 0x08])
         # Configure all pins as inputs
         self.spi.xfer2([self.CHIP_ADDRESS, self.IODIRA, 0xFF])  # Set all pins of port B as input
 
@@ -32,8 +34,8 @@ class HallEffectBoard:
         self.spi.xfer2([self.CHIP_ADDRESS, self.GPPUB, 0xFF])  # Enable pull-up for all pins of port A
 
     # Read the state of the specified pin
-    def read_pin_state(self,pin,port):
-        data = self.spi.xfer2([0x41, port, 0x00])  # Read port B data
+    def read_pin_state(self,pin,port,readAddress):
+        data = self.spi.xfer2([readAddress, port, 0x00])  # Read port B data
         return (data[2] >> pin) & 1 # Extract the state of the specified pin
 
     def read_board(self):
@@ -41,27 +43,23 @@ class HallEffectBoard:
         statesB = []
 
         for i in range(0,8):
-            statesA.append(self.read_pin_state(i,self.GPIOA,self.CHIP_ADDRESS))
-            statesB.append(self.read_pin_state(i,self.GPIOB,self.CHIP_ADDRESS))
+            statesA.append(self.read_pin_state(i,self.GPIOA,self.CHIP_READ_ADDRESS))
+            statesB.append(self.read_pin_state(i,self.GPIOB,self.CHIP_READ_ADDRESS))
         return statesA,statesB
 
-try:
-    nChips = 1
-    chessboard = []
-    chessboardState = []
-    for i in range(64,64+nChips):
-        chessboard.append(HallEffectBoard(hex(i)))
-    while True:
-        for i in range(len(chessboardState)) :
-            statesA,statesB = chessboard[i].read_board()
+if __name__ == "__main__":
+    try:
+        chessboard = HallEffectBoard(0x40,0x41)
+        while True:
+            chessboardState = []
+            statesA,statesB = chessboard.read_board()
             chessboardState.append(statesA)
             chessboardState.append(statesB)
             time.sleep(0.5)
-        print(chessboardState)
-        
-except KeyboardInterrupt:
-    pass
+            print("\n")
+            print(chessboardState)
 
-# Clean up
-for i in range(len(chessboard)):
-    chessboard[i].spi.close()
+            
+    except KeyboardInterrupt:
+        pass
+
