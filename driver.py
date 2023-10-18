@@ -12,7 +12,7 @@ class Driver:
         self.magnet = ElectromagnetController(13)
         self.location = location
         self.delay = 0.001
-        self.limitY = LimitSwitch(7)
+        self.limitY = LimitSwitch(12)
         self.limitX = LimitSwitch(1)
 
 
