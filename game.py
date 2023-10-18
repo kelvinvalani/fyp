@@ -209,11 +209,12 @@ class ChessGUI:
 
         move = source + destination
 
-        if len(move) <= 4:
-            if move[0] in '?@ij' or move[2] in '?@ij' or len(move) == 2:
+        if len(move) == 4:
+            if move[0] in '?@ij' or move[2] in '?@ij':
                 move = 'captured'
                 self.prev_board_state = self.physical_board.read_board_state()
-
+        elif len(move) <4:
+            move = 'captured'
         return move.lower()
     
     def make_robot_move(self,move):
