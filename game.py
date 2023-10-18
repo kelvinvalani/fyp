@@ -365,8 +365,9 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        self.prev_board_state = self.physical_board.read_board_state()
+
                         while len(user_move) != 4 or user_move == 'captured' or user_move == "Incorrect move":
+                            self.prev_board_state = self.physical_board.read_board_state()
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
                             print(user_move)
