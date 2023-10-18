@@ -18,7 +18,7 @@ class LimitSwitch:
         GPIO.cleanup()
 
 if __name__ == "__main__":
-    switch1 = LimitSwitch(7)
+    switch1 = LimitSwitch(12)
     switch2 = LimitSwitch(1)
 
     try:
