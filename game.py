@@ -225,7 +225,7 @@ class ChessGUI:
         end_square = chr(ord(end_square[0])+2)+end_square[1]
         
         dest_col, dest_row = ord(move[2]) - ord('a'), 8 - int(move[3])
-        if self.chessboard[dest_row][dest_col] != ' ':
+        if self.chessboard[dest_row][dest_col] != '':
             if self.chessboard[dest_row][dest_col] in  ['♜', '♞', '♝', '♛', '♚','♟']:
                 if self.blackGrave < 8:
                     grave_square = "K" + str(self.blackGrave + 1)
