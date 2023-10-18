@@ -209,8 +209,8 @@ class ChessGUI:
 
         move = source + destination
 
-        if len(move) == 4:
-            if move[0] in '?@ij' or move[2] in '?@ij':
+        if len(move) <= 4:
+            if move[0] in '?@ij' or move[2] in '?@ij' or len(move) == 2:
                 move = 'captured'
                 self.prev_board_state = self.physical_board.read_board_state()
 
