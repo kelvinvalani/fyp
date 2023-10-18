@@ -208,7 +208,7 @@ class ChessGUI:
                         destination = chr(i+63) + str(j+1)
 
         move = source + destination
-
+        print("original move: " + move)
         if len(move) == 4:
             if move[0] in '?@ij' or move[2] in '?@ij':
                 move = 'captured'
@@ -366,7 +366,7 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
-                        while len(user_move) != 4 or user_move == 'captured':
+                        while len(user_move) != 4 or user_move == 'captured' or user_move == "Incorrect move":
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
                             print(user_move)
@@ -381,6 +381,8 @@ class ChessGUI:
                                 print("Correct move!\n")
                                 self.prev_board_state =self.physical_board.read_board_state()
                                 continue
+                        else:
+                            user_move = "Incorrect move"
             
                 print("Puzzle completed!\n")
 
