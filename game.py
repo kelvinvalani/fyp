@@ -358,7 +358,6 @@ class ChessGUI:
                         print("Illegal move. Try again.")
                         continue
 
-                    self.prev_board_state = self.physical_board.read_board_state()
                     user_move = ''
                     while user_move != player_move:
                         player_move = moves_list[i+1]
@@ -366,6 +365,7 @@ class ChessGUI:
                         #if nextpuzzle is pressed
                         #    break
                         # Ask for the player's move
+                        self.prev_board_state = self.physical_board.read_board_state()
                         while len(user_move) != 4 or user_move == 'captured' or user_move == "Incorrect move":
                             dummy = input("Press enter to confirm a move/capture")
                             user_move = self.detectPlayerMove()
