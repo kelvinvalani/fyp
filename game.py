@@ -324,7 +324,7 @@ class ChessGUI:
             # random.shuffle(all_rows)  # Shuffle the rows
             global board
             for row in all_rows:
-                self.driver.relocalise()
+                #self.driver.relocalise()
                 dummy = input("Press enter for a new puzzle")
                 puzzle_id, fen, moves, rating, *_ = row  # Unpack only the first 4 columns, ignore the rest
 
