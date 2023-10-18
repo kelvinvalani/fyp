@@ -14,12 +14,19 @@ class LimitSwitch:
             print("Switch " +str(self.pin) +" is pressed")
         else:
             self.triggered = False
+    def cleanup(self):
+        GPIO.cleanup()
 
 if __name__ == "__main__":
-    switch1 = LimitSwitch(7)
-    switch2 = LimitSwitch(1)
+    switch1 = LimitSwitch(12)
+    switch2 = LimitSwitch(16)
 
-    while True:
-        switch1.detect()
-        switch2.detect()
-        time.sleep(0.1)
+    try:
+        while True:
+            switch1.detect()
+            switch2.detect()
+            time.sleep(0.1)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        GPIO.cleanup()
