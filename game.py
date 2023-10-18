@@ -324,7 +324,7 @@ class ChessGUI:
             # random.shuffle(all_rows)  # Shuffle the rows
             global board
             for row in all_rows:
-                #self.driver.relocalise()
+                self.driver.relocalise()
                 dummy = input("Press enter for a new puzzle")
                 puzzle_id, fen, moves, rating, *_ = row  # Unpack only the first 4 columns, ignore the rest
 
@@ -352,7 +352,7 @@ class ChessGUI:
                     if chess.Move.from_uci(puzzle_move) in board.legal_moves:
                         board.push(chess.Move.from_uci(puzzle_move))
                         # Display board
-                        #self.make_robot_move(puzzle_move)
+                        self.make_robot_move(puzzle_move)
                         self.update_chessboard(str(puzzle_move))
                     else:
                         print("Illegal move. Try again.")
