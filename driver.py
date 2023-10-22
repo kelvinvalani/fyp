@@ -7,7 +7,7 @@ class Driver:
     def __init__(self,location):
         self.gantry = MotorController(motor1_in1=2, motor1_in2=3, motor1_in3=4, motor1_in4=14,motor2_in1=19, motor2_in2=26, motor2_in3=16, motor2_in4=20)
         self.steps_per_squareY = 49
-        self.steps_per_squareX = 49.5
+        self.steps_per_squareX = 50
         self.steps_per_cm = 12.55
         self.magnet = ElectromagnetController(13)
         self.location = location
