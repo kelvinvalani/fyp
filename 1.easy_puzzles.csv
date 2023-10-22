@@ -1,4 +1,5 @@
 PuzzleId,FEN,Moves,Rating,RatingDeviation,Popularity,NbPlays,Themes
+39,5Qkr/p4p2/1q2pPp1/4P1p1/3p2N1/7P/PP3PK1/2R5 b - - 0 28,g8f8 c1c8 b6d8 c8d8,622,102,75,226,endgame mate mateIn2 short
 1,2r3k1/5p2/2p2Pp1/2p3q1/6P1/1rP4Q/4R3/4R1K1 b - - 0 39,g5f6 e2e8 c8e8 e1e8 g8g7 h3h8,873,84,95,1166,endgame long mate mateIn3
 2,r1b2rk1/pp4pp/1q2pb2/1P1p4/3n4/P2BPN2/6PP/RN1Q1RK1 w - - 0 15,e3d4 f6d4 g1h1 d4a1,950,77,85,134,crushing fork middlegame short
 3,3rqr1k/1p1b2pQ/p1p2p2/4pP2/4n3/1B2BR2/PPP3PP/R5K1 b - - 0 21,h8h7 f3h3 e8h5 h3h5,637,99,94,658,mate mateIn2 middlegame short
