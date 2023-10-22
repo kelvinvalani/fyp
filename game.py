@@ -327,8 +327,8 @@ class ChessGUI:
         return board
     
     def setup_board(self):
-        for i in range(self.chessboard):
-            for j in range(self.chessboard):
+        for i in range(len(self.chessboard)):
+            for j in range(len(self.chessboard)):
                 if self.chessboard[i][j] == '♙':
                     sourceColumn = 'A'
                     sourceRow = self.white_pawns+1
