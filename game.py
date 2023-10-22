@@ -334,7 +334,7 @@ class ChessGUI:
                     sourceRow = self.white_pawns+1
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♘':
@@ -342,7 +342,7 @@ class ChessGUI:
                     sourceRow = self.white_knight+4
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♔':
@@ -350,7 +350,7 @@ class ChessGUI:
                     sourceRow = self.white_king+7
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♖':
@@ -358,7 +358,7 @@ class ChessGUI:
                     sourceRow = self.white_rook+6
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♜':
@@ -366,7 +366,7 @@ class ChessGUI:
                     sourceRow = self.black_rook+6
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♝':
@@ -374,7 +374,7 @@ class ChessGUI:
                     sourceRow = self.black_bishop+5
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♞':
@@ -382,7 +382,7 @@ class ChessGUI:
                     sourceRow = self.black_knight+4
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♚':
@@ -390,7 +390,7 @@ class ChessGUI:
                     sourceRow = self.black_king+7
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 elif self.chessboard[i][j] == '♟':
@@ -398,7 +398,7 @@ class ChessGUI:
                     sourceRow = self.black_pawns+2
                     source = sourceColumn + str(sourceRow)
                     destinationColumn = chr(67+j)
-                    destinationRow = 9-i+1
+                    destinationRow = 8-i
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
                 else:
