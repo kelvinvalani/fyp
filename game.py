@@ -329,7 +329,7 @@ class ChessGUI:
     def setup_board(self):
         for i in range(len(self.chessboard)):
             for j in range(len(self.chessboard)):
-                if self.chessboard[i][j] == '♙':
+                if self.chessboard[j][i] == '♙':
                     sourceColumn = 'A'
                     sourceRow = self.white_pawns+1
                     source = sourceColumn + str(sourceRow)
@@ -337,7 +337,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♘':
+                elif self.chessboard[j][i] == '♘':
                     sourceColumn = 'A'
                     sourceRow = self.white_knight+4
                     source = sourceColumn + str(sourceRow)
@@ -345,7 +345,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♔':
+                elif self.chessboard[j][i] == '♔':
                     sourceColumn = 'A'
                     sourceRow = self.white_king+7
                     source = sourceColumn + str(sourceRow)
@@ -353,7 +353,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♖':
+                elif self.chessboard[j][i] == '♖':
                     sourceColumn = 'A'
                     sourceRow = self.white_rook+6
                     source = sourceColumn + str(sourceRow)
@@ -361,7 +361,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♜':
+                elif self.chessboard[j][i] == '♜':
                     sourceColumn = 'K'
                     sourceRow = self.black_rook+6
                     source = sourceColumn + str(sourceRow)
@@ -369,7 +369,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♝':
+                elif self.chessboard[j][i] == '♝':
                     sourceColumn = 'K'
                     sourceRow = self.black_bishop+5
                     source = sourceColumn + str(sourceRow)
@@ -377,7 +377,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♞':
+                elif self.chessboard[j][i] == '♞':
                     sourceColumn = 'K'
                     sourceRow = self.black_knight+4
                     source = sourceColumn + str(sourceRow)
@@ -385,7 +385,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♚':
+                elif self.chessboard[j][i] == '♚':
                     sourceColumn = 'K'
                     sourceRow = self.black_king+7
                     source = sourceColumn + str(sourceRow)
@@ -393,7 +393,7 @@ class ChessGUI:
                     destinationRow = i+1
                     destinaton = destinationColumn + str(destinationRow)
                     self.driver.move_piece(source,destinaton)
-                elif self.chessboard[i][j] == '♟':
+                elif self.chessboard[j][i] == '♟':
                     sourceColumn = 'K'
                     sourceRow = self.black_pawns+2
                     source = sourceColumn + str(sourceRow)
