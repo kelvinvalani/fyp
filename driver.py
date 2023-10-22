@@ -224,7 +224,7 @@ if __name__ == "__main__":
         elif choice == "2":
             driver.relocalise()
         else:
-            driver.move_piece("A1","G1")
+            driver.move_piece("A1","C8")
 
 
 
