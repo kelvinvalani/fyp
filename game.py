@@ -13,6 +13,18 @@ class ChessGUI:
         self.root.title("Chess puzzles")
         self.whiteGrave = 0
         self.blackGrave = 0
+
+        self.white_pawns = 3
+        self.white_rook = 1
+        self.white_knight = 1
+        self.white_king = 1
+
+        self.black_pawns = 2
+        self.black_rook = 1
+        self.black_knight = 1
+        self.black_king = 1
+        self.black_bishop = 1
+
         self.chessboard = []
         self.driver = Driver("A1")
         self.physical_board = Chessboard()
@@ -314,6 +326,89 @@ class ChessGUI:
 
         return board
     
+    def setup_board(self):
+        for i in range(self.chessboard):
+            for j in range(self.chessboard):
+                if self.chessboard[i][j] == '♙':
+                    sourceColumn = 'A'
+                    sourceRow = self.white_pawns+1
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                
+                elif self.chessboard[i][j] == '♘':
+                    sourceColumn = 'A'
+                    sourceRow = self.white_knight+4
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♔':
+                    sourceColumn = 'A'
+                    sourceRow = self.white_king+7
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♖':
+                    sourceColumn = 'A'
+                    sourceRow = self.white_rook+6
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♜':
+                    sourceColumn = 'K'
+                    sourceRow = self.black_rook+6
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♝':
+                    sourceColumn = 'K'
+                    sourceRow = self.black_bishop+5
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♞':
+                    sourceColumn = 'K'
+                    sourceRow = self.black_knight+4
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♚':
+                    sourceColumn = 'K'
+                    sourceRow = self.black_king+7
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                elif self.chessboard[i][j] == '♟':
+                    sourceColumn = 'K'
+                    sourceRow = self.black_pawns+2
+                    source = sourceColumn + sourceRow
+                    destinationColumn = chr(65+j)
+                    destinationRow = i+1
+                    destinaton = destinationColumn + destinationRow
+                    self.driver.move_piece(source,destinaton)
+                else:
+                    pass
+
+                
+
+
+
     def solve_puzzle(self, csv_file_path):
         # Read the CSV and play through puzzles
         with open(csv_file_path, mode='r') as csv_file:
@@ -335,7 +430,7 @@ class ChessGUI:
 
                 self.chessboard = self.fen_to_2d_array(fen)
                 self.draw_board()
-
+                self.setup_board()
                 # Split the moves string into a list of individual moves
                 moves_list = moves.split(" ")
 
