@@ -95,7 +95,7 @@ class ChessGUI:
         self.show_new_screen("Medium puzzle", csv_file_path)
 
     def open_screenHard(self):
-        csv_file_path = "./1.easy_puzzles.csv"
+        csv_file_path = "./3.hard_puzzles.csv"
         self.show_new_screen("Hard puzzle", csv_file_path)
     
     def go_back_to_main(self):
