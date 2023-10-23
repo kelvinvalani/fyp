@@ -438,7 +438,7 @@ class ChessGUI:
 
                 self.chessboard = self.fen_to_2d_array(fen)
                 self.draw_board()
-                self.setup_board()
+                #self.setup_board()
                 # Split the moves string into a list of individual moves
                 moves_list = moves.split(" ")
 
